@@ -251,6 +251,8 @@ public class ConversionsActivity extends AppCompatActivity {
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fromEdit.removeTextChangedListener(textWatcher);
+                toEdit.removeTextChangedListener(textWatcher);
                 String fromValue = null, toValue = null;
                 if (!fromEdit.getText().toString().trim().isEmpty()) {
                     fromValue = fromEdit.getText().toString().trim();
@@ -264,6 +266,8 @@ public class ConversionsActivity extends AppCompatActivity {
                 toEdit.setText(fromValue);
                 fromSpinner.setSelection(pos2);
                 toSpinner.setSelection(pos1);
+                fromEdit.addTextChangedListener(textWatcher);
+                toEdit.addTextChangedListener(textWatcher);
             }
         });
 
@@ -367,19 +371,29 @@ public class ConversionsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (categorySpinner.getSelectedItemPosition()) {
                     case 0:
+                        removingWatcher();
                         fromLengthConditions();
+                        addingWatcher();
                         break;
                     case 1:
+                        removingWatcher();
                         fromAreaConditions();
+                        addingWatcher();
                         break;
                     case 2:
+                        removingWatcher();
                         fromVolumeConditions();
+                        addingWatcher();
                         break;
                     case 3:
+                        removingWatcher();
                         fromWeightConditions();
+                        addingWatcher();
                         break;
                     case 4:
+                        removingWatcher();
                         fromTemperatureConditions();
+                        addingWatcher();
                         break;
                 }
             }
@@ -394,34 +408,44 @@ public class ConversionsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (categorySpinner.getSelectedItemPosition()) {
                     case 0:
+                        removingWatcher();
                         fromLengthConditions();
                         for (int i = 0; i < toSpinner.getChildCount(); i++) {
                             ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.redGrad));
                         }
+                        addingWatcher();
                         break;
                     case 1:
+                        removingWatcher();
                         fromAreaConditions();
                         for (int i = 0; i < toSpinner.getChildCount(); i++) {
                             ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blueGrad));
                         }
+                        addingWatcher();
                         break;
                     case 2:
+                        removingWatcher();
                         fromVolumeConditions();
                         for (int i = 0; i < toSpinner.getChildCount(); i++) {
                             ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.yellowGrad));
                         }
+                        addingWatcher();
                         break;
                     case 3:
+                        removingWatcher();
                         fromWeightConditions();
                         for (int i = 0; i < toSpinner.getChildCount(); i++) {
                             ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.greenGrad));
                         }
+                        addingWatcher();
                         break;
                     case 4:
+                        removingWatcher();
                         fromTemperatureConditions();
                         for (int i = 0; i < toSpinner.getChildCount(); i++) {
                             ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.sublimeGrad));
                         }
+                        addingWatcher();
                         break;
                 }
             }
@@ -430,6 +454,16 @@ public class ConversionsActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+    }
+
+    private void addingWatcher() {
+        fromEdit.addTextChangedListener(textWatcher);
+        toEdit.addTextChangedListener(textWatcher);
+    }
+
+    private void removingWatcher() {
+        fromEdit.removeTextChangedListener(textWatcher);
+        toEdit.removeTextChangedListener(textWatcher);
     }
 
     @SuppressLint("DefaultLocale")
