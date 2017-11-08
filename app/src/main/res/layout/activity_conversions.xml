@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConversionsActivity">
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/category_spinner"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@android:color/white"
+        android:elevation="4dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/upper_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/redgradient"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/lower_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/from_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/white"
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:textColor="@android:color/white"
+            android:textSize="35sp" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/from_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="0.2"
+            android:backgroundTint="@android:color/white"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lower_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/upper_parent"
+        app:layout_constraintVertical_chainStyle="spread">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/to_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:textSize="35sp" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/to_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:spinnerMode="dropdown" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/swap_button"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/ic_swap_vert_r"
+        android:contentDescription="@string/swap"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/share_app"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="24dp"
+        android:contentDescription="@string/share"
+        android:src="@drawable/ic_share_r"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
