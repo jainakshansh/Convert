@@ -52,12 +52,6 @@ public class ConversionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Setting up the activity for full screen mode.
-        /*
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        */
         setContentView(R.layout.activity_conversions);
 
         initViews();
@@ -76,7 +70,8 @@ public class ConversionsActivity extends AppCompatActivity {
                         //Setting up the lower spinner according to the category.
                         lLenAdapter.setDropDownViewResource(R.layout.item_dd_r);
                         toSpinner.setAdapter(lLenAdapter);
-                        toSpinner.setSelection(1);
+                        fromSpinner.setSelection(1);
+                        toSpinner.setSelection(5);
 
                         upperParent.setBackgroundResource(R.drawable.redgradient);
                         swapButton.setBackgroundResource(R.drawable.ic_swap_vert_r);
@@ -98,7 +93,8 @@ public class ConversionsActivity extends AppCompatActivity {
                         //Setting up the lower spinner according to the category.
                         lAreaAdapter.setDropDownViewResource(R.layout.item_dd_b);
                         toSpinner.setAdapter(lAreaAdapter);
-                        toSpinner.setSelection(1);
+                        fromSpinner.setSelection(3);
+                        toSpinner.setSelection(2);
 
                         upperParent.setBackgroundResource(R.drawable.bluegradient);
                         swapButton.setBackgroundResource(R.drawable.ic_swap_vert);
@@ -120,7 +116,8 @@ public class ConversionsActivity extends AppCompatActivity {
                         //Setting up the lower spinner according to the category.
                         lVolAdapter.setDropDownViewResource(R.layout.item_dd_y);
                         toSpinner.setAdapter(lVolAdapter);
-                        toSpinner.setSelection(1);
+                        fromSpinner.setSelection(1);
+                        toSpinner.setSelection(3);
 
                         upperParent.setBackgroundResource(R.drawable.yellowgradient);
                         swapButton.setBackgroundResource(R.drawable.ic_swap_vert_y);
@@ -142,6 +139,7 @@ public class ConversionsActivity extends AppCompatActivity {
                         //Setting up the lower spinner according to the category.
                         lWeightAdapter.setDropDownViewResource(R.layout.item_dd_g);
                         toSpinner.setAdapter(lWeightAdapter);
+                        fromSpinner.setSelection(6);
                         toSpinner.setSelection(1);
 
                         upperParent.setBackgroundResource(R.drawable.greengradient);
@@ -164,7 +162,8 @@ public class ConversionsActivity extends AppCompatActivity {
                         //Setting up the lower spinner according to the category.
                         lTempAdapter.setDropDownViewResource(R.layout.item_dd_py);
                         toSpinner.setAdapter(lTempAdapter);
-                        toSpinner.setSelection(1);
+                        fromSpinner.setSelection(1);
+                        toSpinner.setSelection(2);
 
                         upperParent.setBackgroundResource(R.drawable.sublimelightgradient);
                         swapButton.setBackgroundResource(R.drawable.ic_swap_vert_o);
@@ -325,6 +324,7 @@ public class ConversionsActivity extends AppCompatActivity {
         areaList.add("sq. km");
         areaList.add("acre");
         areaList.add("hectare");
+        areaList.add("sq. yard");
 
         //Initialising the volume list.
         volumeList = new ArrayList<>();
@@ -1098,6 +1098,10 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = sqcmTohectare(Double.parseDouble(fromEdit.getText().toString().trim()));
                             toEdit.setText(String.format("%.4f", res));
                             break;
+                        case 7:
+                            res = sqcmTosqyard(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 1:
@@ -1128,6 +1132,10 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 6:
                             res = sqinchTohectare(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = sqinchTosqyard(Double.parseDouble(fromEdit.getText().toString().trim()));
                             toEdit.setText(String.format("%.4f", res));
                             break;
                     }
@@ -1162,6 +1170,10 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = sqfootTohectare(Double.parseDouble(fromEdit.getText().toString().trim()));
                             toEdit.setText(String.format("%.4f", res));
                             break;
+                        case 7:
+                            res = sqfootTosqyard(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 3:
@@ -1194,6 +1206,10 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = sqmTohectare(Double.parseDouble(fromEdit.getText().toString().trim()));
                             toEdit.setText(String.format("%.4f", res));
                             break;
+                        case 7:
+                            res = sqmTosqyard(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 4:
@@ -1222,6 +1238,10 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 6:
                             res = sqkmTohectare(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = sqkmTosqyard(Double.parseDouble(fromEdit.getText().toString().trim()));
                             toEdit.setText(String.format("%.4f", res));
                             break;
                     }
@@ -1256,6 +1276,10 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = acreTohectare(Double.parseDouble(fromEdit.getText().toString().trim()));
                             toEdit.setText(String.format("%.4f", res));
                             break;
+                        case 7:
+                            res = acreTosqyard(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 6:
@@ -1288,8 +1312,47 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = hectareTohectare(Double.parseDouble(fromEdit.getText().toString().trim()));
                             toEdit.setText(String.format("%.4f", res));
                             break;
+                        case 7:
+                            res = hectareTosqyard(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
+                case 7:
+                    switch (to) {
+                        case 0:
+                            res = sqyardTosqcm(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = sqyardTosqinch(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = sqyardTosqfoot(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = sqyardTosqm(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = sqyardTosqkm(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = sqyardToacre(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = sqyardTohectare(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = sqyardTosqyard(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
             }
         }
     }
@@ -1330,6 +1393,10 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = sqcmTohectare(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
+                        case 7:
+                            res = sqcmTosqyard(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 1:
@@ -1360,6 +1427,10 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 6:
                             res = sqinchTohectare(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = sqinchTosqyard(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
                     }
@@ -1394,6 +1465,10 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = sqfootTohectare(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
+                        case 7:
+                            res = sqfootTosqyard(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 3:
@@ -1426,6 +1501,10 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = sqmTohectare(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
+                        case 7:
+                            res = sqmTosqyard(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 4:
@@ -1454,6 +1533,10 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 6:
                             res = sqkmTohectare(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = sqkmTosqyard(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
                     }
@@ -1488,6 +1571,10 @@ public class ConversionsActivity extends AppCompatActivity {
                             acreTohectare(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
+                        case 7:
+                            res = acreTosqyard(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 6:
@@ -1518,6 +1605,46 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 6:
                             res = hectareTohectare(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = hectareTosqyard(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 7:
+                    switch (to) {
+                        case 0:
+                            res = sqyardTosqcm(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = sqyardTosqinch(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = sqyardTosqfoot(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = sqyardTosqm(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = sqyardTosqkm(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = sqyardToacre(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = sqyardTohectare(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = sqyardTosqyard(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
                     }
@@ -2748,6 +2875,10 @@ public class ConversionsActivity extends AppCompatActivity {
         return num * 1.E-10;
     }
 
+    private double sqcmTosqyard(double num) {
+        return num * 0.000119599;
+    }
+
     private double sqinchTosqcm(double num) {
         return num * 6.4516;
     }
@@ -2774,6 +2905,10 @@ public class ConversionsActivity extends AppCompatActivity {
 
     private double sqinchTosqkm(double num) {
         return num * 6.4516E-10;
+    }
+
+    private double sqinchTosqyard(double num) {
+        return num * 0.0007716049;
     }
 
     private double sqfootTosqcm(double num) {
@@ -2804,6 +2939,10 @@ public class ConversionsActivity extends AppCompatActivity {
         return num * 9.290E-8;
     }
 
+    private double sqfootTosqyard(double num) {
+        return num * 0.1111111111;
+    }
+
     private double sqmTosqcm(double num) {
         return num * 10000;
     }
@@ -2830,6 +2969,10 @@ public class ConversionsActivity extends AppCompatActivity {
 
     private double sqmTosqkm(double num) {
         return num * 0.000001;
+    }
+
+    private double sqmTosqyard(double num) {
+        return num * 1.1959900463;
     }
 
     private double acreTosqcm(double num) {
@@ -2860,6 +3003,10 @@ public class ConversionsActivity extends AppCompatActivity {
         return num * 0.00405;
     }
 
+    private double acreTosqyard(double num) {
+        return num * 4840;
+    }
+
     private double hectareTosqcm(double num) {
         return num * 100000000;
     }
@@ -2888,6 +3035,10 @@ public class ConversionsActivity extends AppCompatActivity {
         return num * 0.01;
     }
 
+    private double hectareTosqyard(double num) {
+        return num * 11959.900463;
+    }
+
     private double sqkmTosqinch(double num) {
         return num * 1550003100;
     }
@@ -2909,6 +3060,42 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double sqkmTosqkm(double num) {
+        return num * 1;
+    }
+
+    private double sqkmTosqyard(double num) {
+        return num * 1195990.0463;
+    }
+
+    private double sqyardTosqcm(double num) {
+        return num * 8361.2736;
+    }
+
+    private double sqyardTosqinch(double num) {
+        return num * 1296;
+    }
+
+    private double sqyardTosqfoot(double num) {
+        return num * 9;
+    }
+
+    private double sqyardTosqm(double num) {
+        return num * 0.83612736;
+    }
+
+    private double sqyardToacre(double num) {
+        return num * 0.0002066116;
+    }
+
+    private double sqyardTohectare(double num) {
+        return num * 0.0000836127;
+    }
+
+    private double sqyardTosqkm(double num) {
+        return num * 8.3612736E-7;
+    }
+
+    private double sqyardTosqyard(double num) {
         return num * 1;
     }
 
