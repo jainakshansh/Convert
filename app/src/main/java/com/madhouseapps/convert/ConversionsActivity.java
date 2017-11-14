@@ -276,7 +276,7 @@ public class ConversionsActivity extends AppCompatActivity {
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Hey check out this amazing unit converter at: http://www.madhouseapps.com/");
+                        "Hey check out this amazing unit converter at: https://play.google.com/store/apps/details?id=com.madhouseapps.convert");
                 shareIntent.setType("text/plain");
                 startActivity(shareIntent);
             }
@@ -341,7 +341,7 @@ public class ConversionsActivity extends AppCompatActivity {
         weightList.add("g");
         weightList.add("kg");
         weightList.add("ton");
-        weightList.add("carrat");
+        weightList.add("carat");
         weightList.add("ounce");
         weightList.add("pound");
 
