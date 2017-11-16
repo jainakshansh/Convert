@@ -2542,48 +2542,84 @@ public class ConversionsActivity extends AppCompatActivity {
                 case 0:
                     switch (to) {
                         case 0:
-                            res = kelvinTokelvin(Double.parseDouble(toEdit.getText().toString().trim()));
-                            fromEdit.setText(String.format("%.4f", res));
+                            try {
+                                res = kelvinTokelvin(Double.parseDouble(toEdit.getText().toString().trim()));
+                                fromEdit.setText(String.format("%.4f", res));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         case 1:
-                            res = kelTofah(Double.parseDouble(toEdit.getText().toString().trim()));
-                            fromEdit.setText(String.format("%.4f", res));
+                            try {
+                                res = kelTofah(Double.parseDouble(toEdit.getText().toString().trim()));
+                                fromEdit.setText(String.format("%.4f", res));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         case 2:
-                            res = kelTocel(Double.parseDouble(toEdit.getText().toString().trim()));
-                            fromEdit.setText(String.format("%.4f", res));
+                            try {
+                                res = kelTocel(Double.parseDouble(toEdit.getText().toString().trim()));
+                                fromEdit.setText(String.format("%.4f", res));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             break;
                     }
                     break;
                 case 1:
                     switch (to) {
                         case 0:
-                            res = fahTokel(Double.parseDouble(toEdit.getText().toString().trim()));
-                            fromEdit.setText(String.format("%.4f", res));
+                            try {
+                                res = fahTokel(Double.parseDouble(toEdit.getText().toString().trim()));
+                                fromEdit.setText(String.format("%.4f", res));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         case 1:
-                            res = fahTofah(Double.parseDouble(toEdit.getText().toString().trim()));
-                            fromEdit.setText(String.format("%.4f", res));
+                            try {
+                                res = fahTofah(Double.parseDouble(toEdit.getText().toString().trim()));
+                                fromEdit.setText(String.format("%.4f", res));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         case 2:
-                            res = fahTocel(Double.parseDouble(toEdit.getText().toString().trim()));
-                            fromEdit.setText(String.format("%.4f", res));
+                            try {
+                                res = fahTocel(Double.parseDouble(toEdit.getText().toString().trim()));
+                                fromEdit.setText(String.format("%.4f", res));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             break;
                     }
                     break;
                 case 2:
                     switch (to) {
                         case 0:
-                            res = celTokel(Double.parseDouble(toEdit.getText().toString().trim()));
-                            fromEdit.setText(String.format("%.4f", res));
+                            try {
+                                res = celTokel(Double.parseDouble(toEdit.getText().toString().trim()));
+                                fromEdit.setText(String.format("%.4f", res));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         case 1:
-                            res = celTofah(Double.parseDouble(toEdit.getText().toString().trim()));
-                            fromEdit.setText(String.format("%.4f", res));
+                            try {
+                                res = celTofah(Double.parseDouble(toEdit.getText().toString().trim()));
+                                fromEdit.setText(String.format("%.4f", res));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         case 2:
-                            res = celTocel(Double.parseDouble(toEdit.getText().toString().trim()));
-                            fromEdit.setText(String.format("%.4f", res));
+                            try {
+                                res = celTocel(Double.parseDouble(toEdit.getText().toString().trim()));
+                                fromEdit.setText(String.format("%.4f", res));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             break;
                     }
                     break;
@@ -3460,7 +3496,9 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double fahTocel(double num) {
-        return ((5 / 9) * (num - 32));
+        num = num - 32;
+        num = (5 / 9) * num;
+        return num;
     }
 
     private double celTokel(double num) {
