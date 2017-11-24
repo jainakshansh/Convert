@@ -2484,15 +2484,27 @@ public class ConversionsActivity extends AppCompatActivity {
                 case 0:
                     switch (to) {
                         case 0:
-                            res = kelvinTokelvin(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            try {
+                                res = kelvinTokelvin(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             toEdit.setText(String.format("%.4f", res));
                             break;
                         case 1:
-                            res = kelTofah(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            try {
+                                res = kelTofah(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             toEdit.setText(String.format("%.4f", res));
                             break;
                         case 2:
-                            res = kelTocel(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            try {
+                                res = kelTocel(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             toEdit.setText(String.format("%.4f", res));
                             break;
                     }
@@ -2500,15 +2512,27 @@ public class ConversionsActivity extends AppCompatActivity {
                 case 1:
                     switch (to) {
                         case 0:
-                            res = fahTokel(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            try {
+                                res = fahTokel(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             toEdit.setText(String.format("%.4f", res));
                             break;
                         case 1:
-                            res = fahTofah(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            try {
+                                res = fahTofah(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             toEdit.setText(String.format("%.4f", res));
                             break;
                         case 2:
-                            res = fahTocel(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            try {
+                                res = fahTocel(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             toEdit.setText(String.format("%.4f", res));
                             break;
                     }
@@ -2516,15 +2540,27 @@ public class ConversionsActivity extends AppCompatActivity {
                 case 2:
                     switch (to) {
                         case 0:
-                            res = celTokel(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            try {
+                                res = celTokel(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             toEdit.setText(String.format("%.4f", res));
                             break;
                         case 1:
-                            res = celTofah(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            try {
+                                res = celTofah(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             toEdit.setText(String.format("%.4f", res));
                             break;
                         case 2:
-                            res = celTocel(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            try {
+                                res = celTocel(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
                             toEdit.setText(String.format("%.4f", res));
                             break;
                     }
@@ -3488,7 +3524,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double fahTokel(double num) {
-        return (((5 / 9) * (num - 32)) + 273);
+        return (((5d / 9) * (num - 32)) + 273);
     }
 
     private double fahTofah(double num) {
@@ -3496,9 +3532,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double fahTocel(double num) {
-        num = num - 32;
-        num = (5 / 9) * num;
-        return num;
+        return (num - 32) * (5d / 9);
     }
 
     private double celTokel(double num) {
