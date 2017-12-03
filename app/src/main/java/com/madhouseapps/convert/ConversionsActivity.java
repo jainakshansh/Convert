@@ -38,12 +38,15 @@ public class ConversionsActivity extends AppCompatActivity {
     private List<String> volumeList;
     private List<String> weightList;
     private List<String> temperatureList;
+    private List<String> dataStorageList;
+    private List<String> powerList;
+    private List<String> energyList;
 
     private Typeface solomon;
     private TextWatcher textWatcher;
 
-    private SpinnerAdapter lengthAdapter, areaAdapter, volumeAdapter, weightAdapter, tempAdapter;
-    private LowerSpinnerAdapter lLenAdapter, lAreaAdapter, lVolAdapter, lWeightAdapter, lTempAdapter;
+    private SpinnerAdapter lengthAdapter, areaAdapter, volumeAdapter, weightAdapter, tempAdapter, dataAdapter;
+    private LowerSpinnerAdapter lLenAdapter, lAreaAdapter, lVolAdapter, lWeightAdapter, lTempAdapter, lDataAdapter;
     private CategoryAdapter categoryAdapter;
 
     private int from, to;
@@ -217,6 +220,9 @@ public class ConversionsActivity extends AppCompatActivity {
                             fromTemperatureConditions();
                             break;
                     }
+                    if (fromEdit.getText().toString().isEmpty()) {
+                        toEdit.setText("");
+                    }
                     toEdit.addTextChangedListener(textWatcher);
                 } else if (toEdit.getText().hashCode() == s.hashCode()) {
                     fromEdit.removeTextChangedListener(textWatcher);
@@ -236,6 +242,9 @@ public class ConversionsActivity extends AppCompatActivity {
                         case 4:
                             toTemperatureConditions();
                             break;
+                    }
+                    if (toEdit.getText().toString().isEmpty()) {
+                        fromEdit.setText("");
                     }
                     fromEdit.addTextChangedListener(textWatcher);
                 }
@@ -303,6 +312,9 @@ public class ConversionsActivity extends AppCompatActivity {
         categoriesList.add("Volume");
         categoriesList.add("Weight");
         categoriesList.add("Temperature");
+        categoriesList.add("Data Storage");
+        categoriesList.add("Power");
+        categoriesList.add("Energy");
 
         //Initialising the length list.
         lengthList = new ArrayList<>();
@@ -351,6 +363,17 @@ public class ConversionsActivity extends AppCompatActivity {
         temperatureList.add("°F");
         temperatureList.add("°C");
 
+        //Initialising the data storage list.
+        dataStorageList = new ArrayList<>();
+        dataStorageList.add("bytes");
+        dataStorageList.add("kb");
+        dataStorageList.add("kB");
+        dataStorageList.add("Mb");
+        dataStorageList.add("MB");
+        dataStorageList.add("Gb");
+        dataStorageList.add("GB");
+        dataStorageList.add("TB");
+
         //Initialising the adapters.
         categoryAdapter = new CategoryAdapter(getApplicationContext(), categoriesList);
         lengthAdapter = new SpinnerAdapter(getApplicationContext(), lengthList);
@@ -363,6 +386,8 @@ public class ConversionsActivity extends AppCompatActivity {
         lWeightAdapter = new LowerSpinnerAdapter(getApplicationContext(), weightList);
         tempAdapter = new SpinnerAdapter(getApplicationContext(), temperatureList);
         lTempAdapter = new LowerSpinnerAdapter(getApplicationContext(), temperatureList);
+        dataAdapter = new SpinnerAdapter(getApplicationContext(), dataStorageList);
+        lDataAdapter = new LowerSpinnerAdapter(getApplicationContext(), dataStorageList);
     }
 
     private void dependentSpinners() {
@@ -3472,39 +3497,39 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double kgTopound(double num) {
-        return num * 2.205;
+        return num * 2.205d;
     }
 
     private double kgTokg(double num) {
-        return num * 1;
+        return num * 1d;
     }
 
     private double kgToton(double num) {
-        return num * 0.001;
+        return num * 0.001d;
     }
 
     private double tonTomg(double num) {
-        return num * 1000000000;
+        return num * 1000000000d;
     }
 
     private double tonTogm(double num) {
-        return num * 1000000;
+        return num * 1000000d;
     }
 
     private double tonTocarrat(double num) {
-        return num * 5000000;
+        return num * 5000000d;
     }
 
     private double tonToounce(double num) {
-        return num * 35273.991;
+        return num * 35273.991d;
     }
 
     private double tonTopound(double num) {
-        return num * 2204.624;
+        return num * 2204.624d;
     }
 
     private double tonTokg(double num) {
-        return num * 1000;
+        return num * 1000d;
     }
 
     private double tonToton(double num) {
@@ -3516,7 +3541,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double kelTofah(double num) {
-        return ((1.8 * (num - 273)) + 32);
+        return ((1.8d * (num - 273)) + 32);
     }
 
     private double kelTocel(double num) {
@@ -3540,10 +3565,138 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double celTofah(double num) {
-        return (1.8 * (num + 32));
+        return (1.8d * (num + 32));
     }
 
     private double celTocel(double num) {
         return num;
+    }
+
+    private double byteTobyte(double num) {
+        return num;
+    }
+
+    private double byteTokb(double num) {
+        return num * 0.0078125d;
+    }
+
+    private double byteTokB(double num) {
+        return num * 0.0009765625d;
+    }
+
+    private double byteToMb(double num) {
+        return num * 0.0000076294d;
+    }
+
+    private double byteToMB(double num) {
+        return num * 9.536743164E-7d;
+    }
+
+    private double byteToGb(double num) {
+        return num * 7.450580596E-9d;
+    }
+
+    private double byteToGB(double num) {
+        return num * 9.313225746E-10d;
+    }
+
+    private double byteToTB(double num) {
+        return num * 9.094947017E-13d;
+    }
+
+    private double kbTobyte(double num) {
+        return num * 128d;
+    }
+
+    private double kbTokb(double num) {
+        return num;
+    }
+
+    private double kbTokB(double num) {
+        return num * 0.125d;
+    }
+
+    private double kbToMb(double num) {
+        return num * 0.0009765625d;
+    }
+
+    private double kbToMB(double num) {
+        return num * 0.0001220703d;
+    }
+
+    private double kbToGb(double num) {
+        return num * 9.536743164E-7d;
+    }
+
+    private double kbToGB(double num) {
+        return num * 1.192092895E-7d;
+    }
+
+    private double kbToTB(double num) {
+        return num * 1.164153218E-10d;
+    }
+
+    private double kBtobyte(double num) {
+        return num * 1024d;
+    }
+
+    private double kBtokb(double num) {
+        return num * 8d;
+    }
+
+    private double kBTokB(double num) {
+        return num;
+    }
+
+    private double kBToMb(double num) {
+        return num * 0.0078125d;
+    }
+
+    private double kBToMB(double num) {
+        return num * 0.0009765625d;
+    }
+
+    private double kBToGb(double num) {
+        return num * 0.0000076294d;
+    }
+
+    private double kBToGB(double num) {
+        return num * 9.536743164E-7d;
+    }
+
+    private double kBToTB(double num) {
+        return num * 9.313225746E-10d;
+    }
+
+    private double Mbtobyte(double num) {
+        return num * 131072d;
+    }
+
+    private double MbTokb(double num) {
+        return num * 1024d;
+    }
+
+    private double MbTokB(double num) {
+        return num * 128d;
+    }
+
+    private double MbToMb(double num) {
+        return num;
+    }
+
+    private double MbToMB(double num) {
+        return num * 0.125d;
+    }
+
+    private double MbToGb(double num) {
+        return num * 0.0009765625d;
+    }
+
+    private double MbToGB(double num) {
+        return num * 0.0001220703d;
+    }
+
+    private double MbToTB(double num) {
+        return num * 1.192092895E-7d;
     }
 }
