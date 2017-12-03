@@ -180,6 +180,8 @@ public class ConversionsActivity extends AppCompatActivity {
                         break;
                     case 5:
                         break;
+                    case 6:
+                        break;
                 }
             }
 
@@ -220,6 +222,9 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 4:
                             fromTemperatureConditions();
+                            break;
+                        case 5:
+                            fromStorageConditions();
                             break;
                     }
                     if (fromEdit.getText().toString().isEmpty()) {
@@ -2706,6 +2711,602 @@ public class ConversionsActivity extends AppCompatActivity {
                             } catch (NumberFormatException e) {
                                 e.printStackTrace();
                             }
+                            break;
+                    }
+                    break;
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void fromStorageConditions() {
+        from = fromSpinner.getSelectedItemPosition();
+        to = toSpinner.getSelectedItemPosition();
+        if (!fromEdit.getText().toString().isEmpty()) {
+            switch (from) {
+                case 0:
+                    switch (to) {
+                        case 0:
+                            res = byteTobyte(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = byteTokb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = byteTokB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = byteToMb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = byteToMB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = byteToGb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = byteToGB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = byteToTB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (to) {
+                        case 0:
+                            res = kbTobyte(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = kbTokb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = kbTokB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = kbToMb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = kbToMB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = kbToGb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = kbToGB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = kbToTB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (to) {
+                        case 0:
+                            res = kBtobyte(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = kBtokb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = kBTokB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = kBToMb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = kBToMB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = kBToGb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = kBToGB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = kBToTB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (to) {
+                        case 0:
+                            res = Mbtobyte(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = MbTokb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = MbTokB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = MbToMb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = MbToMB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = MbToGb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = MbToGB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = MbToTB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 4:
+                    switch (to) {
+                        case 0:
+                            res = MBTobyte(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = MBTokb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = MBTokB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = MBToMb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = MBToMB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = MBToGb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = MBToGB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = MBToTB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 5:
+                    switch (to) {
+                        case 0:
+                            res = GbTobyte(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = GbTokb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = GbTokB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = GbToMb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = GbToMB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = GbToGb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = GbToGB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = GbToTB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 6:
+                    switch (to) {
+                        case 0:
+                            res = GBTobyte(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = GBTokb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = GBTokB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = GBToMb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = GBToMB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = GBToGb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = GBToGB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = GBToTB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 7:
+                    switch (to) {
+                        case 0:
+                            res = TBTobytes(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = TBTokb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = TBTokB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = TBToMb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = TBToMB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = TBToGb(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = TBToGB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = TBToTB(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void toStorageConditions() {
+        from = toSpinner.getSelectedItemPosition();
+        to = fromSpinner.getSelectedItemPosition();
+        if (!toEdit.getText().toString().isEmpty()){
+            switch (from) {
+                case 0:
+                    switch (to) {
+                        case 0:
+                            res = byteTobyte(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = byteTokb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = byteTokB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = byteToMb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = byteToMB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = byteToGb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = byteToGB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = byteToTB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (to) {
+                        case 0:
+                            res = kbTobyte(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = kbTokb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = kbTokB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = kbToMb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = kbToMB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = kbToGb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = kbToGB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = kbToTB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (to) {
+                        case 0:
+                            res = kBtobyte(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = kBtokb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = kBTokB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = kBToMb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = kBToMB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = kBToGb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = kBToGB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = kBToTB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (to) {
+                        case 0:
+                            res = Mbtobyte(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = MbTokb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = MbTokB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = MbToMb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = MbToMB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = MbToGb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = MbToGB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = MbToTB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 4:
+                    switch (to) {
+                        case 0:
+                            res = MBTobyte(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = MBTokb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = MBTokB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = MBToMb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = MBToMB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = MBToGb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = MBToGB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = MBToTB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 5:
+                    switch (to) {
+                        case 0:
+                            res = GbTobyte(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = GbTokb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = GbTokB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = GbToMb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = GbToMB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = GbToGb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = GbToGB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = GbToTB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 6:
+                    switch (to) {
+                        case 0:
+                            res = GBTobyte(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = GBTokb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = GBTokB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = GBToMb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = GBToMB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = GBToGb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = GBToGB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = GBToTB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 7:
+                    switch (to) {
+                        case 0:
+                            res = TBTobytes(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = TBTokb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = TBTokB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = TBToMb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = TBToMB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = TBToGb(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = TBToGB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 7:
+                            res = TBToTB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
                             break;
                     }
                     break;
