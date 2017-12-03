@@ -45,8 +45,8 @@ public class ConversionsActivity extends AppCompatActivity {
     private Typeface solomon;
     private TextWatcher textWatcher;
 
-    private SpinnerAdapter lengthAdapter, areaAdapter, volumeAdapter, weightAdapter, tempAdapter, dataAdapter;
-    private LowerSpinnerAdapter lLenAdapter, lAreaAdapter, lVolAdapter, lWeightAdapter, lTempAdapter, lDataAdapter;
+    private SpinnerAdapter lengthAdapter, areaAdapter, volumeAdapter, weightAdapter, tempAdapter, dataAdapter, powerAdapter, energyAdapter;
+    private LowerSpinnerAdapter lLenAdapter, lAreaAdapter, lVolAdapter, lWeightAdapter, lTempAdapter, lDataAdapter, lPowerAdapter, lEnergyAdapter;
     private CategoryAdapter categoryAdapter;
 
     private int from, to;
@@ -178,6 +178,8 @@ public class ConversionsActivity extends AppCompatActivity {
                         fromEdit.setText(null);
                         toEdit.setText(null);
                         break;
+                    case 5:
+                        break;
                 }
             }
 
@@ -292,7 +294,9 @@ public class ConversionsActivity extends AppCompatActivity {
         });
     }
 
-    private void initViews() {
+    private void
+
+    initViews() {
         solomon = Typeface.createFromAsset(getAssets(), "fonts/Solomon.ttf");
         categorySpinner = findViewById(R.id.category_spinner);
         fromSpinner = findViewById(R.id.from_spinner);
@@ -374,6 +378,23 @@ public class ConversionsActivity extends AppCompatActivity {
         dataStorageList.add("GB");
         dataStorageList.add("TB");
 
+        //Initialising the energy list.
+        energyList = new ArrayList<>();
+        energyList.add("mJ");
+        energyList.add("J");
+        energyList.add("kJ");
+        energyList.add("MJ");
+        energyList.add("GJ");
+
+        //Initialising the power list.
+        powerList = new ArrayList<>();
+        powerList.add("watt");
+        powerList.add("hW");
+        powerList.add("kW");
+        powerList.add("MW");
+        powerList.add("GW");
+        powerList.add("hp");
+
         //Initialising the adapters.
         categoryAdapter = new CategoryAdapter(getApplicationContext(), categoriesList);
         lengthAdapter = new SpinnerAdapter(getApplicationContext(), lengthList);
@@ -388,6 +409,10 @@ public class ConversionsActivity extends AppCompatActivity {
         lTempAdapter = new LowerSpinnerAdapter(getApplicationContext(), temperatureList);
         dataAdapter = new SpinnerAdapter(getApplicationContext(), dataStorageList);
         lDataAdapter = new LowerSpinnerAdapter(getApplicationContext(), dataStorageList);
+        powerAdapter = new SpinnerAdapter(getApplicationContext(), powerList);
+        lPowerAdapter = new LowerSpinnerAdapter(getApplicationContext(), powerList);
+        energyAdapter = new SpinnerAdapter(getApplicationContext(), energyList);
+        lEnergyAdapter = new LowerSpinnerAdapter(getApplicationContext(), energyList);
     }
 
     private void dependentSpinners() {
@@ -3698,5 +3723,353 @@ public class ConversionsActivity extends AppCompatActivity {
 
     private double MbToTB(double num) {
         return num * 1.192092895E-7d;
+    }
+
+    private double MBTobyte(double num) {
+        return num * 1048576d;
+    }
+
+    private double MBTokb(double num) {
+        return num * 8192d;
+    }
+
+    private double MBTokB(double num) {
+        return num * 1024d;
+    }
+
+    private double MBToMb(double num) {
+        return num * 8d;
+    }
+
+    private double MBToMB(double num) {
+        return num;
+    }
+
+    private double MBToGb(double num) {
+        return num * 0.0078125d;
+    }
+
+    private double MBToGB(double num) {
+        return num * 0.0009765625d;
+    }
+
+    private double MBToTB(double num) {
+        return num * 9.536743164E-7d;
+    }
+
+    private double GbTobyte(double num) {
+        return num * 134217728d;
+    }
+
+    private double GbTokb(double num) {
+        return num * 1048576d;
+    }
+
+    private double GbTokB(double num) {
+        return num * 131072d;
+    }
+
+    private double GbToMb(double num) {
+        return num * 1024d;
+    }
+
+    private double GbToMB(double num) {
+        return num * 128d;
+    }
+
+    private double GbToGb(double num) {
+        return num;
+    }
+
+    private double GbToGB(double num) {
+        return num * 0.125d;
+    }
+
+    private double GbToTB(double num) {
+        return num * 0.0001220703d;
+    }
+
+    private double GBTobyte(double num) {
+        return num * 1073741824d;
+    }
+
+    private double GBTokb(double num) {
+        return num * 8388608d;
+    }
+
+    private double GBTokB(double num) {
+        return num * 1048576d;
+    }
+
+    private double GBToMb(double num) {
+        return num * 8192d;
+    }
+
+    private double GBToMB(double num) {
+        return num * 1024d;
+    }
+
+    private double GBToGb(double num) {
+        return num * 8d;
+    }
+
+    private double GBToGB(double num) {
+        return num * 1d;
+    }
+
+    private double GBToTB(double num) {
+        return num * 0.0009765625d;
+    }
+
+    private double TBTobytes(double num) {
+        return num * 1099511627776d;
+    }
+
+    private double TBTokb(double num) {
+        return num * 8589934592d;
+    }
+
+    private double TBTokB(double num) {
+        return num * 1073741824d;
+    }
+
+    private double TBToMb(double num) {
+        return num * 8388608d;
+    }
+
+    private double TBToMB(double num) {
+        return num * 1048576d;
+    }
+
+    private double TBToGb(double num) {
+        return num * 8192d;
+    }
+
+    private double TBToGB(double num) {
+        return num * 1024d;
+    }
+
+    private double TBToTB(double num) {
+        return num;
+    }
+
+    private double mJTomJ(double num) {
+        return num;
+    }
+
+    private double mJToJ(double num) {
+        return num * 0.001d;
+    }
+
+    private double mJTokJ(double num) {
+        return num * 0.000001d;
+    }
+
+    private double mJToMJ(double num) {
+        return num * 1.E-9d;
+    }
+
+    private double mJToGJ(double num) {
+        return num * 1.E-12d;
+    }
+
+    private double JTomJ(double num) {
+        return num * 1000d;
+    }
+
+    private double JToJ(double num) {
+        return num;
+    }
+
+    private double JTokJ(double num) {
+        return num * 0.001d;
+    }
+
+    private double JToMJ(double num) {
+        return num * 0.000001d;
+    }
+
+    private double JToGJ(double num) {
+        return num * 1.E-10d;
+    }
+
+    private double kJTomJ(double num) {
+        return num * 1000000d;
+    }
+
+    private double kJToJ(double num) {
+        return num * 1000d;
+    }
+
+    private double kJTokJ(double num) {
+        return num;
+    }
+
+    private double kJToMJ(double num) {
+        return num * 0.001d;
+    }
+
+    private double kJToGJ(double num) {
+        return num * 0.000001d;
+    }
+
+    private double MJTomJ(double num) {
+        return num * 1000000000d;
+    }
+
+    private double MJToJ(double num) {
+        return num * 1000000d;
+    }
+
+    private double MJTokJ(double num) {
+        return num * 1000d;
+    }
+
+    private double MJToMJ(double num) {
+        return num;
+    }
+
+    private double MJToGJ(double num) {
+        return num * 0.001d;
+    }
+
+    private double GJTomJ(double num) {
+        return num * 1000000000000d;
+    }
+
+    private double GJToJ(double num) {
+        return num * 1000000000d;
+    }
+
+    private double GJTokJ(double num) {
+        return num * 1000000d;
+    }
+
+    private double GJToMJ(double num) {
+        return num * 1000d;
+    }
+
+    private double GJToGJ(double num) {
+        return num;
+    }
+
+    private double wattTowatt(double num) {
+        return num;
+    }
+
+    private double wattTohW(double num) {
+        return num * 0.01d;
+    }
+
+    private double wattTokW(double num) {
+        return num * 0.001d;
+    }
+
+    private double wattToMW(double num) {
+        return num * 0.000001d;
+    }
+
+    private double wattToGW(double num) {
+        return num * 1.E-9d;
+    }
+
+    private double wattTohp(double num) {
+        return num * 745.69987158d;
+    }
+
+    private double hWtowatt(double num) {
+        return num * 100d;
+    }
+
+    private double hWTohW(double num) {
+        return num;
+    }
+
+    private double hWTokW(double num) {
+        return num * 0.1d;
+    }
+
+    private double hWToMW(double num) {
+        return num * 0.0001d;
+    }
+
+    private double hWToGW(double num) {
+        return num * 1.E-7d;
+    }
+
+    private double hWtohp(double num) {
+        return num * 0.134102209d;
+    }
+
+    private double kWTowatt(double num) {
+        return num * 1000d;
+    }
+
+    private double kWTohW(double num) {
+        return num * 10d;
+    }
+
+    private double kWTokW(double num) {
+        return num;
+    }
+
+    private double kWToMW(double num) {
+        return num * 0.001d;
+    }
+
+    private double kWToGW(double num) {
+        return num * 0.000001d;
+    }
+
+    private double kWTohp(double num) {
+        return num * 1.3410220896d;
+    }
+
+    private double MWTowatt(double num) {
+        return num * 1000000d;
+    }
+
+    private double MWTohW(double num) {
+        return num * 10000d;
+    }
+
+    private double MWTokW(double num) {
+        return num * 1000d;
+    }
+
+    private double MWToMW(double num) {
+        return num;
+    }
+
+    private double MWToGW(double num) {
+        return num * 0.001d;
+    }
+
+    private double MWTohp(double num) {
+        return num * 1341.0220896d;
+    }
+
+    private double GWTowatt(double num) {
+        return num * 1000000000d;
+    }
+
+    private double GWTohW(double num) {
+        return num * 10000000d;
+    }
+
+    private double GWTokW(double num) {
+        return num * 1000000d;
+    }
+
+    private double GWToMW(double num) {
+        return num * 1000d;
+    }
+
+    private double GWToGW(double num) {
+        return num;
+    }
+
+    private double GWTohp(double num) {
+        return num * 1341022.0896d;
     }
 }
