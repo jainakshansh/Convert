@@ -184,6 +184,8 @@ public class ConversionsActivity extends AppCompatActivity {
                         lDataAdapter.setDropDownViewResource(R.layout.item_dd_b);
                         toSpinner.setAdapter(lDataAdapter);
 
+                        upperParent.setBackgroundResource(R.drawable.purplepinegradient);
+
                         fromEdit.setText(null);
                         toEdit.setText(null);
                         break;
@@ -196,6 +198,14 @@ public class ConversionsActivity extends AppCompatActivity {
                         fromEdit.setText(null);
                         toEdit.setText(null);
                         break;
+                    case 7:
+                        energyAdapter.setDropDownViewResource(R.layout.item_dd_b);
+                        fromSpinner.setAdapter(energyAdapter);
+                        lEnergyAdapter.setDropDownViewResource(R.layout.item_dd_b);
+                        toSpinner.setAdapter(lEnergyAdapter);
+
+                        fromEdit.setText(null);
+                        toEdit.setText(null);
                 }
             }
 
@@ -243,6 +253,9 @@ public class ConversionsActivity extends AppCompatActivity {
                         case 6:
                             fromPowerConditions();
                             break;
+                        case 7:
+                            fromEnergyConditions();
+                            break;
                     }
                     if (fromEdit.getText().toString().isEmpty()) {
                         toEdit.setText("");
@@ -271,6 +284,9 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 6:
                             toPowerConditions();
+                            break;
+                        case 7:
+                            toEnergyConditions();
                             break;
                     }
                     if (toEdit.getText().toString().isEmpty()) {
@@ -315,7 +331,7 @@ public class ConversionsActivity extends AppCompatActivity {
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Hey check out this amazing unit converter at: https://play.google.com/store/apps/details?id=com.madhouseapps.convert");
+                        "Hey, check out this amazing unit converter at: https://play.google.com/store/apps/details?id=com.madhouseapps.convert");
                 shareIntent.setType("text/plain");
                 startActivity(shareIntent);
             }
@@ -473,6 +489,21 @@ public class ConversionsActivity extends AppCompatActivity {
                         fromTemperatureConditions();
                         addingWatcher();
                         break;
+                    case 5:
+                        removingWatcher();
+                        fromStorageConditions();
+                        addingWatcher();
+                        break;
+                    case 6:
+                        removingWatcher();
+                        fromPowerConditions();
+                        addingWatcher();
+                        break;
+                    case 7:
+                        removingWatcher();
+                        fromEnergyConditions();
+                        addingWatcher();
+                        break;
                 }
             }
 
@@ -523,6 +554,18 @@ public class ConversionsActivity extends AppCompatActivity {
                         for (int i = 0; i < toSpinner.getChildCount(); i++) {
                             ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.sublimeGrad));
                         }
+                        addingWatcher();
+                        break;
+                    case 5:
+                        removingWatcher();
+                        addingWatcher();
+                        break;
+                    case 6:
+                        removingWatcher();
+                        addingWatcher();
+                        break;
+                    case 7:
+                        removingWatcher();
                         addingWatcher();
                         break;
                 }
@@ -3685,6 +3728,267 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 5:
                             res = hpTohp(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void fromEnergyConditions() {
+        from = fromSpinner.getSelectedItemPosition();
+        to = toSpinner.getSelectedItemPosition();
+        if (!fromEdit.getText().toString().isEmpty()) {
+            switch (from) {
+                case 0:
+                    switch (to) {
+                        case 0:
+                            res = mJTomJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = mJToJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = mJTokJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = mJToMJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = mJToGJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (to) {
+                        case 0:
+                            res = JTomJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = JToJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = JTokJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = JToMJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = JToGJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (to) {
+                        case 0:
+                            res = kJTomJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = kJToJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = kJTokJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = kJToMJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = kJToGJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (to) {
+                        case 0:
+                            res = MJTomJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = MJToJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = MJTokJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = MJToMJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = MJToGJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+
+                    }
+                    break;
+                case 4:
+                    switch (to) {
+                        case 0:
+                            res = GJTomJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = GJToJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = GJTokJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = GJToMJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = GJToGJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void toEnergyConditions() {
+        to = fromSpinner.getSelectedItemPosition();
+        from = toSpinner.getSelectedItemPosition();
+        if (!toEdit.getText().toString().isEmpty()) {
+            switch (from) {
+                case 0:
+                    switch (to) {
+                        case 0:
+                            res = mJTomJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = mJToJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = mJTokJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = mJToMJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = mJToGJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (to) {
+                        case 0:
+                            res = JTomJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = JToJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = JTokJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = JToMJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = JToGJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (to) {
+                        case 0:
+                            res = kJTomJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = kJToJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = kJTokJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = kJToMJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = kJToGJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (to) {
+                        case 0:
+                            res = MJTomJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = MJToJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = MJTokJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = MJToMJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = MJToGJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+
+                    }
+                    break;
+                case 4:
+                    switch (to) {
+                        case 0:
+                            res = GJTomJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = GJToJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = GJTokJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = GJToMJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = GJToGJ(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
                     }
