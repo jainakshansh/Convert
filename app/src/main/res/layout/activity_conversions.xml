@@ -115,4 +115,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
+    <ImageView
+        android:id="@+id/rate_app"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="24dp"
+        android:contentDescription="@string/rate_us"
+        android:src="@drawable/ic_star_r"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/share_app" />
+
 </android.support.constraint.ConstraintLayout>

@@ -28,7 +28,7 @@ public class ConversionsActivity extends AppCompatActivity {
 
     private AppCompatSpinner categorySpinner, fromSpinner, toSpinner;
     private AppCompatEditText fromEdit, toEdit;
-    private ImageView share;
+    private ImageView share, rate;
     private Button swapButton;
     private LinearLayout upperParent;
 
@@ -82,6 +82,7 @@ public class ConversionsActivity extends AppCompatActivity {
                         toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.redGrad));
                         toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.redGrad));
                         share.setImageResource(R.drawable.ic_share_r);
+                        rate.setImageResource(R.drawable.ic_star_r);
 
                         fromEdit.setText(null);
                         toEdit.setText(null);
@@ -105,6 +106,7 @@ public class ConversionsActivity extends AppCompatActivity {
                         toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.blueGrad));
                         toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.blueGrad));
                         share.setImageResource(R.drawable.ic_share_b);
+                        rate.setImageResource(R.drawable.ic_star_b);
 
                         fromEdit.setText(null);
                         toEdit.setText(null);
@@ -128,6 +130,7 @@ public class ConversionsActivity extends AppCompatActivity {
                         toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.yellowGrad));
                         toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.yellowGrad));
                         share.setImageResource(R.drawable.ic_share_y);
+                        rate.setImageResource(R.drawable.ic_star_y);
 
                         fromEdit.setText(null);
                         toEdit.setText(null);
@@ -151,6 +154,7 @@ public class ConversionsActivity extends AppCompatActivity {
                         toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.greenGrad));
                         toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.greenGrad));
                         share.setImageResource(R.drawable.ic_share_g);
+                        rate.setImageResource(R.drawable.ic_star_g);
 
                         fromEdit.setText(null);
                         toEdit.setText(null);
@@ -174,6 +178,7 @@ public class ConversionsActivity extends AppCompatActivity {
                         toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.sublimeGrad));
                         toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.sublimeGrad));
                         share.setImageResource(R.drawable.ic_share_o);
+                        rate.setImageResource(R.drawable.ic_star_py);
 
                         fromEdit.setText(null);
                         toEdit.setText(null);
@@ -184,7 +189,11 @@ public class ConversionsActivity extends AppCompatActivity {
                         lDataAdapter.setDropDownViewResource(R.layout.item_dd_b);
                         toSpinner.setAdapter(lDataAdapter);
 
-                        upperParent.setBackgroundResource(R.drawable.purplepinegradient);
+                        upperParent.setBackgroundResource(R.drawable.mauvegradient);
+                        toEdit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.mauve));
+                        toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.mauve));
+                        toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.mauve));
+                        rate.setImageResource(R.drawable.ic_star_mv);
 
                         fromEdit.setText(null);
                         toEdit.setText(null);
@@ -194,6 +203,12 @@ public class ConversionsActivity extends AppCompatActivity {
                         fromSpinner.setAdapter(powerAdapter);
                         lPowerAdapter.setDropDownViewResource(R.layout.item_dd_b);
                         toSpinner.setAdapter(lPowerAdapter);
+
+                        upperParent.setBackgroundResource(R.drawable.hersheysgradient);
+                        toEdit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.hersheys));
+                        toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.hersheys));
+                        toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.hersheys));
+                        rate.setImageResource(R.drawable.ic_star_hs);
 
                         fromEdit.setText(null);
                         toEdit.setText(null);
@@ -350,6 +365,7 @@ public class ConversionsActivity extends AppCompatActivity {
         toEdit = findViewById(R.id.to_edit_text);
         toEdit.setTypeface(solomon);
         share = findViewById(R.id.share_app);
+        rate = findViewById(R.id.rate_app);
         swapButton = findViewById(R.id.swap_button);
         upperParent = findViewById(R.id.upper_parent);
 
