@@ -179,8 +179,22 @@ public class ConversionsActivity extends AppCompatActivity {
                         toEdit.setText(null);
                         break;
                     case 5:
+                        dataAdapter.setDropDownViewResource(R.layout.item_dd_b);
+                        fromSpinner.setAdapter(dataAdapter);
+                        lDataAdapter.setDropDownViewResource(R.layout.item_dd_b);
+                        toSpinner.setAdapter(lDataAdapter);
+
+                        fromEdit.setText(null);
+                        toEdit.setText(null);
                         break;
                     case 6:
+                        powerAdapter.setDropDownViewResource(R.layout.item_dd_b);
+                        fromSpinner.setAdapter(powerAdapter);
+                        lPowerAdapter.setDropDownViewResource(R.layout.item_dd_b);
+                        toSpinner.setAdapter(lPowerAdapter);
+
+                        fromEdit.setText(null);
+                        toEdit.setText(null);
                         break;
                 }
             }
@@ -226,6 +240,9 @@ public class ConversionsActivity extends AppCompatActivity {
                         case 5:
                             fromStorageConditions();
                             break;
+                        case 6:
+                            fromPowerConditions();
+                            break;
                     }
                     if (fromEdit.getText().toString().isEmpty()) {
                         toEdit.setText("");
@@ -248,6 +265,12 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 4:
                             toTemperatureConditions();
+                            break;
+                        case 5:
+                            toStorageConditions();
+                            break;
+                        case 6:
+                            toPowerConditions();
                             break;
                     }
                     if (toEdit.getText().toString().isEmpty()) {
@@ -3020,7 +3043,7 @@ public class ConversionsActivity extends AppCompatActivity {
     private void toStorageConditions() {
         from = toSpinner.getSelectedItemPosition();
         to = fromSpinner.getSelectedItemPosition();
-        if (!toEdit.getText().toString().isEmpty()){
+        if (!toEdit.getText().toString().isEmpty()) {
             switch (from) {
                 case 0:
                     switch (to) {
@@ -3306,6 +3329,362 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 7:
                             res = TBToTB(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void fromPowerConditions() {
+        from = fromSpinner.getSelectedItemPosition();
+        to = toSpinner.getSelectedItemPosition();
+        if (!fromEdit.getText().toString().isEmpty()) {
+            switch (from) {
+                case 0:
+                    switch (to) {
+                        case 0:
+                            res = wattTowatt(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = wattTohW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = wattTokW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = wattToMW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = wattToGW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = wattTohp(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (to) {
+                        case 0:
+                            res = hWtowatt(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = hWTohW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = hWTokW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = hWToMW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = hWToGW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = hWtohp(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (to) {
+                        case 0:
+                            res = kWTowatt(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = kWTohW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = kWTokW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = kWToMW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = kWToGW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = kWTohp(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (to) {
+                        case 0:
+                            res = MWTowatt(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = MWTohW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = MWTokW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = MWToMW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = MWToGW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = MWTohp(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 4:
+                    switch (to) {
+                        case 0:
+                            res = GWTowatt(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = GWTohW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = GWTokW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = GWToMW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = GWToGW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = GWTohp(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 5:
+                    switch (to) {
+                        case 0:
+                            res = hpTowatt(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = hpTohW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = hpTokW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = hpToMW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = hpToGW(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = hpTohp(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void toPowerConditions() {
+        to = fromSpinner.getSelectedItemPosition();
+        from = toSpinner.getSelectedItemPosition();
+        if (!toEdit.getText().toString().isEmpty()) {
+            switch (from) {
+                case 0:
+                    switch (to) {
+                        case 0:
+                            res = wattTowatt(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = wattTohW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = wattTokW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = wattToMW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = wattToGW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = wattTohp(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (to) {
+                        case 0:
+                            res = hWtowatt(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = hWTohW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = hWTokW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = hWToMW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = hWToGW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = hWtohp(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (to) {
+                        case 0:
+                            res = kWTowatt(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = kWTohW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = kWTokW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = kWToMW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = kWToGW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = kWTohp(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (to) {
+                        case 0:
+                            res = MWTowatt(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = MWTohW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = MWTokW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = MWToMW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = MWToGW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = MWTohp(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 4:
+                    switch (to) {
+                        case 0:
+                            res = GWTowatt(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = GWTohW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = GWTokW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = GWToMW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = GWToGW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = GWTohp(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 5:
+                    switch (to) {
+                        case 0:
+                            res = hpTowatt(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = hpTohW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = hpTokW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = hpToMW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = hpToGW(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = hpTohp(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
                     }
@@ -4672,5 +5051,29 @@ public class ConversionsActivity extends AppCompatActivity {
 
     private double GWTohp(double num) {
         return num * 1341022.0896d;
+    }
+
+    private double hpTowatt(double num) {
+        return num * 745.69987158d;
+    }
+
+    private double hpTohW(double num) {
+        return num * 7.4569987158d;
+    }
+
+    private double hpTokW(double num) {
+        return num * 0.7456998716d;
+    }
+
+    private double hpToMW(double num) {
+        return num * 0.0007456999d;
+    }
+
+    private double hpToGW(double num) {
+        return num * 7.456998715E-7d;
+    }
+
+    private double hpTohp(double num) {
+        return num;
     }
 }
