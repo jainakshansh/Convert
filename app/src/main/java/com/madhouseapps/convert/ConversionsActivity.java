@@ -188,12 +188,15 @@ public class ConversionsActivity extends AppCompatActivity {
                         fromSpinner.setAdapter(dataAdapter);
                         lDataAdapter.setDropDownViewResource(R.layout.item_dd_b);
                         toSpinner.setAdapter(lDataAdapter);
+                        fromSpinner.setSelection(2);
+                        toSpinner.setSelection(4);
 
-                        upperParent.setBackgroundResource(R.drawable.mauvegradient);
-                        toEdit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.mauve));
-                        toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.mauve));
-                        toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.mauve));
-                        rate.setImageResource(R.drawable.ic_star_mv);
+                        upperParent.setBackgroundResource(R.drawable.deepspacegradient);
+                        toEdit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.deepspace));
+                        toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.deepspace));
+                        toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.deepspace));
+                        share.setImageResource(R.drawable.ic_share_ds);
+                        rate.setImageResource(R.drawable.ic_star_ds);
 
                         fromEdit.setText(null);
                         toEdit.setText(null);
@@ -203,11 +206,14 @@ public class ConversionsActivity extends AppCompatActivity {
                         fromSpinner.setAdapter(powerAdapter);
                         lPowerAdapter.setDropDownViewResource(R.layout.item_dd_b);
                         toSpinner.setAdapter(lPowerAdapter);
+                        fromSpinner.setSelection(2);
+                        toSpinner.setSelection(5);
 
                         upperParent.setBackgroundResource(R.drawable.hersheysgradient);
                         toEdit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.hersheys));
                         toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.hersheys));
                         toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.hersheys));
+                        share.setImageResource(R.drawable.ic_share_hs);
                         rate.setImageResource(R.drawable.ic_star_hs);
 
                         fromEdit.setText(null);
@@ -218,6 +224,15 @@ public class ConversionsActivity extends AppCompatActivity {
                         fromSpinner.setAdapter(energyAdapter);
                         lEnergyAdapter.setDropDownViewResource(R.layout.item_dd_b);
                         toSpinner.setAdapter(lEnergyAdapter);
+                        fromSpinner.setSelection(1);
+                        toSpinner.setSelection(2);
+
+                        upperParent.setBackgroundResource(R.drawable.sweetmorninggradient);
+                        toEdit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.sweetmorning));
+                        toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.sweetmorning));
+                        toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.sweetmorning));
+                        share.setImageResource(R.drawable.ic_share_sm);
+                        rate.setImageResource(R.drawable.ic_star_sm);
 
                         fromEdit.setText(null);
                         toEdit.setText(null);
@@ -574,10 +589,16 @@ public class ConversionsActivity extends AppCompatActivity {
                         break;
                     case 5:
                         removingWatcher();
+                        for (int i = 0; i < toSpinner.getChildCount(); i++) {
+                            ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.mauve));
+                        }
                         addingWatcher();
                         break;
                     case 6:
                         removingWatcher();
+                        for (int i = 0; i < toSpinner.getChildCount(); i++) {
+                            ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.hersheys));
+                        }
                         addingWatcher();
                         break;
                     case 7:
