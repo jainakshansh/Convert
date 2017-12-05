@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.content.ContextCompat;
@@ -445,27 +446,41 @@ public class ConversionsActivity extends AppCompatActivity {
                     Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.linear_rotate);
                     seeAll.startAnimation(animation);
 
-                    ConstraintSet set = new ConstraintSet();
-                    set.clone(constraintLayout);
-                    set.connect(upperParent.getId(), ConstraintSet.BOTTOM, seeAllParent.getId(), ConstraintSet.TOP, 0);
-                    set.applyTo(constraintLayout);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            seeAll.setImageResource(R.drawable.ic_arrow_down);
 
-                    lowerParent.setVisibility(View.GONE);
-                    swapButton.setVisibility(View.GONE);
-                    seeAllParent.setVisibility(View.VISIBLE);
+                            ConstraintSet set = new ConstraintSet();
+                            set.clone(constraintLayout);
+                            set.connect(upperParent.getId(), ConstraintSet.BOTTOM, seeAllParent.getId(), ConstraintSet.TOP, 0);
+                            set.applyTo(constraintLayout);
+
+                            lowerParent.setVisibility(View.GONE);
+                            swapButton.setVisibility(View.GONE);
+                            seeAllParent.setVisibility(View.VISIBLE);
+                        }
+                    }, 600);
                 } else {
                     bottomEnabled = false;
                     Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.linear_rotate);
                     seeAll.startAnimation(animation);
 
-                    ConstraintSet set = new ConstraintSet();
-                    set.clone(constraintLayout);
-                    set.connect(upperParent.getId(), ConstraintSet.BOTTOM, lowerParent.getId(), ConstraintSet.TOP, 0);
-                    set.applyTo(constraintLayout);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            seeAll.setImageResource(R.drawable.ic_arrow_up);
 
-                    lowerParent.setVisibility(View.VISIBLE);
-                    swapButton.setVisibility(View.VISIBLE);
-                    seeAllParent.setVisibility(View.GONE);
+                            ConstraintSet set = new ConstraintSet();
+                            set.clone(constraintLayout);
+                            set.connect(upperParent.getId(), ConstraintSet.BOTTOM, lowerParent.getId(), ConstraintSet.TOP, 0);
+                            set.applyTo(constraintLayout);
+
+                            lowerParent.setVisibility(View.VISIBLE);
+                            swapButton.setVisibility(View.VISIBLE);
+                            seeAllParent.setVisibility(View.GONE);
+                        }
+                    }, 600);
                 }
             }
         });
@@ -1115,9 +1130,9 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("bytes", String.format("%.4f", byteTobyte(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kb", String.format("%.4f", byteTokb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kB", String.format("%.4f", byteTokB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Mb", String.format("%.4f", byteToMb(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°MB", String.format("%.4f", byteToMB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Gb", String.format("%.4f", byteToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Mb", String.format("%.4f", byteToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MB", String.format("%.4f", byteToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Gb", String.format("%.4f", byteToGb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GB", String.format("%.4f", byteToGB(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("TB", String.format("%.4f", byteToTB(Double.parseDouble(value)))));
                     break;
@@ -1125,9 +1140,9 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("bytes", String.format("%.4f", kbTobyte(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kb", String.format("%.4f", kbTokb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kB", String.format("%.4f", kbTokB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Mb", String.format("%.4f", kbToMb(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°MB", String.format("%.4f", kbToMB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Gb", String.format("%.4f", kbToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Mb", String.format("%.4f", kbToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MB", String.format("%.4f", kbToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Gb", String.format("%.4f", kbToGb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GB", String.format("%.4f", kbToGB(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("TB", String.format("%.4f", kbToTB(Double.parseDouble(value)))));
                     break;
@@ -1135,9 +1150,9 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("bytes", String.format("%.4f", kBtobyte(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kb", String.format("%.4f", kBtokb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kB", String.format("%.4f", kBTokB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Mb", String.format("%.4f", kBToMb(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°MB", String.format("%.4f", kBToMB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Gb", String.format("%.4f", kBToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Mb", String.format("%.4f", kBToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MB", String.format("%.4f", kBToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Gb", String.format("%.4f", kBToGb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GB", String.format("%.4f", kBToGB(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("TB", String.format("%.4f", kBToTB(Double.parseDouble(value)))));
                     break;
@@ -1145,9 +1160,9 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("bytes", String.format("%.4f", Mbtobyte(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kb", String.format("%.4f", MbTokb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kB", String.format("%.4f", MbTokB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Mb", String.format("%.4f", MbToMb(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°MB", String.format("%.4f", MbToMB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Gb", String.format("%.4f", MbToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Mb", String.format("%.4f", MbToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MB", String.format("%.4f", MbToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Gb", String.format("%.4f", MbToGb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GB", String.format("%.4f", MbToGB(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("TB", String.format("%.4f", MbToTB(Double.parseDouble(value)))));
                     break;
@@ -1155,9 +1170,9 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("bytes", String.format("%.4f", MBTobyte(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kb", String.format("%.4f", MBTokb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kB", String.format("%.4f", MBTokB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Mb", String.format("%.4f", MBToMb(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°MB", String.format("%.4f", MBToMB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Gb", String.format("%.4f", MBToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Mb", String.format("%.4f", MBToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MB", String.format("%.4f", MBToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Gb", String.format("%.4f", MBToGb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GB", String.format("%.4f", MBToGB(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("TB", String.format("%.4f", MBToTB(Double.parseDouble(value)))));
                     break;
@@ -1165,9 +1180,9 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("bytes", String.format("%.4f", GbTobyte(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kb", String.format("%.4f", GbTokb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kB", String.format("%.4f", GbTokB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Mb", String.format("%.4f", GbToMb(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°MB", String.format("%.4f", GbToMB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Gb", String.format("%.4f", GbToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Mb", String.format("%.4f", GbToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MB", String.format("%.4f", GbToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Gb", String.format("%.4f", GbToGb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GB", String.format("%.4f", GbToGB(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("TB", String.format("%.4f", GbToTB(Double.parseDouble(value)))));
                     break;
@@ -1175,9 +1190,9 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("bytes", String.format("%.4f", GBTobyte(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kb", String.format("%.4f", GBTokb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kB", String.format("%.4f", GBTokB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Mb", String.format("%.4f", GBToMb(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°MB", String.format("%.4f", GBToMB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Gb", String.format("%.4f", GBToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Mb", String.format("%.4f", GBToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MB", String.format("%.4f", GBToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Gb", String.format("%.4f", GBToGb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GB", String.format("%.4f", GBToGB(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("TB", String.format("%.4f", GBToTB(Double.parseDouble(value)))));
                     break;
@@ -1185,9 +1200,9 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("bytes", String.format("%.4f", TBTobytes(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kb", String.format("%.4f", TBTokb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("kB", String.format("%.4f", TBTokB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Mb", String.format("%.4f", TBToMb(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°MB", String.format("%.4f", TBToMB(Double.parseDouble(value)))));
-                    conversionList.add(new Conversion("°Gb", String.format("%.4f", TBToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Mb", String.format("%.4f", TBToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MB", String.format("%.4f", TBToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("Gb", String.format("%.4f", TBToGb(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GB", String.format("%.4f", TBToGB(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("TB", String.format("%.4f", TBToTB(Double.parseDouble(value)))));
                     break;

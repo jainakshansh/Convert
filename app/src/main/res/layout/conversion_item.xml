@@ -12,13 +12,14 @@
         android:layout_weight="1"
         android:gravity="center"
         android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/conv_value"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:gravity="center"
         android:textColor="@android:color/black"
         android:textSize="20sp" />

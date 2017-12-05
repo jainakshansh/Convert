@@ -110,14 +110,14 @@
         app:layout_constraintVertical_chainStyle="spread">
 
         <ListView
-            android:divider="@null"
             android:id="@+id/list_view_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:divider="@null" />
 
     </LinearLayout>
 
@@ -157,7 +157,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="20dp"
-        android:background="@drawable/arrow_up"
+        android:background="@drawable/ic_arrow_up"
         android:contentDescription="@string/see_more"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
