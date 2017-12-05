@@ -184,14 +184,20 @@ public class ConversionsActivity extends AppCompatActivity {
                         toEdit.setText(null);
                         break;
                     case 5:
-                        dataAdapter.setDropDownViewResource(R.layout.item_dd_b);
+                        categoryAdapter.setDropDownViewResource(R.layout.cat_dd_ds);
+                        categoryAdapter.notifyDataSetChanged();
+
+                        //Setting up spinner according to category.
+                        dataAdapter.setDropDownViewResource(R.layout.item_dd_ds);
                         fromSpinner.setAdapter(dataAdapter);
-                        lDataAdapter.setDropDownViewResource(R.layout.item_dd_b);
+                        //Setting up the lower spinner according to the category.
+                        lDataAdapter.setDropDownViewResource(R.layout.item_dd_ds);
                         toSpinner.setAdapter(lDataAdapter);
                         fromSpinner.setSelection(2);
                         toSpinner.setSelection(4);
 
                         upperParent.setBackgroundResource(R.drawable.deepspacegradient);
+                        swapButton.setBackgroundResource(R.drawable.ic_swap_vert_ds);
                         toEdit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.deepspace));
                         toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.deepspace));
                         toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.deepspace));
@@ -202,14 +208,20 @@ public class ConversionsActivity extends AppCompatActivity {
                         toEdit.setText(null);
                         break;
                     case 6:
-                        powerAdapter.setDropDownViewResource(R.layout.item_dd_b);
+                        categoryAdapter.setDropDownViewResource(R.layout.cat_dd_hs);
+                        categoryAdapter.notifyDataSetChanged();
+
+                        //Setting up spinner according to category.
+                        powerAdapter.setDropDownViewResource(R.layout.item_dd_hs);
                         fromSpinner.setAdapter(powerAdapter);
-                        lPowerAdapter.setDropDownViewResource(R.layout.item_dd_b);
+                        //Setting up the lower spinner according to the category.
+                        lPowerAdapter.setDropDownViewResource(R.layout.item_dd_hs);
                         toSpinner.setAdapter(lPowerAdapter);
                         fromSpinner.setSelection(2);
                         toSpinner.setSelection(5);
 
                         upperParent.setBackgroundResource(R.drawable.hersheysgradient);
+                        swapButton.setBackgroundResource(R.drawable.ic_swap_vert_hs);
                         toEdit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.hersheys));
                         toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.hersheys));
                         toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.hersheys));
@@ -220,14 +232,20 @@ public class ConversionsActivity extends AppCompatActivity {
                         toEdit.setText(null);
                         break;
                     case 7:
-                        energyAdapter.setDropDownViewResource(R.layout.item_dd_b);
+                        categoryAdapter.setDropDownViewResource(R.layout.cat_dd_sm);
+                        categoryAdapter.notifyDataSetChanged();
+
+                        //Setting up spinner according to category.
+                        energyAdapter.setDropDownViewResource(R.layout.item_dd_sm);
                         fromSpinner.setAdapter(energyAdapter);
-                        lEnergyAdapter.setDropDownViewResource(R.layout.item_dd_b);
+                        //Setting up the lower spinner according to the category.
+                        lEnergyAdapter.setDropDownViewResource(R.layout.item_dd_sm);
                         toSpinner.setAdapter(lEnergyAdapter);
                         fromSpinner.setSelection(1);
                         toSpinner.setSelection(2);
 
                         upperParent.setBackgroundResource(R.drawable.sweetmorninggradient);
+                        swapButton.setBackgroundResource(R.drawable.ic_swap_vert_sm);
                         toEdit.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.sweetmorning));
                         toEdit.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.sweetmorning));
                         toSpinner.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.sweetmorning));
