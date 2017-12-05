@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
@@ -11,13 +13,17 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.madhouseapps.convert.Adapters.CategoryAdapter;
+import com.madhouseapps.convert.Adapters.ConversionAdapter;
 import com.madhouseapps.convert.Adapters.LowerSpinnerAdapter;
 import com.madhouseapps.convert.Adapters.SpinnerAdapter;
 
@@ -26,12 +32,16 @@ import java.util.List;
 
 public class ConversionsActivity extends AppCompatActivity {
 
+    private ConstraintLayout constraintLayout;
     private AppCompatSpinner categorySpinner, fromSpinner, toSpinner;
     private AppCompatEditText fromEdit, toEdit;
-    private ImageView share, rate;
+    private ImageView share, rate, seeAll;
     private Button swapButton;
-    private LinearLayout upperParent;
+    private LinearLayout upperParent, lowerParent, seeAllParent;
+    private boolean bottomEnabled = false;
 
+    private ListView listView;
+    private List<Conversion> conversionList;
     private List<String> categoriesList;
     private List<String> lengthList;
     private List<String> areaList;
@@ -48,6 +58,7 @@ public class ConversionsActivity extends AppCompatActivity {
     private SpinnerAdapter lengthAdapter, areaAdapter, volumeAdapter, weightAdapter, tempAdapter, dataAdapter, powerAdapter, energyAdapter;
     private LowerSpinnerAdapter lLenAdapter, lAreaAdapter, lVolAdapter, lWeightAdapter, lTempAdapter, lDataAdapter, lPowerAdapter, lEnergyAdapter;
     private CategoryAdapter categoryAdapter;
+    private ConversionAdapter conversionAdapter;
 
     private int from, to;
     private double res = 0.0;
@@ -66,6 +77,8 @@ public class ConversionsActivity extends AppCompatActivity {
                     case 0:
                         categoryAdapter.setDropDownViewResource(R.layout.cat_dd_r);
                         categoryAdapter.notifyDataSetChanged();
+
+                        conversionAdapter.notifyDataSetChanged();
 
                         //Setting up spinner according to category.
                         lengthAdapter.setDropDownViewResource(R.layout.item_dd_r);
@@ -91,6 +104,9 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.setDropDownViewResource(R.layout.cat_dd_b);
                         categoryAdapter.notifyDataSetChanged();
 
+                        allAreaConditions();
+                        conversionAdapter.notifyDataSetChanged();
+
                         //Setting up spinner according to category.
                         areaAdapter.setDropDownViewResource(R.layout.item_dd_b);
                         fromSpinner.setAdapter(areaAdapter);
@@ -114,6 +130,9 @@ public class ConversionsActivity extends AppCompatActivity {
                     case 2:
                         categoryAdapter.setDropDownViewResource(R.layout.cat_dd_y);
                         categoryAdapter.notifyDataSetChanged();
+
+                        allVolumeConditions();
+                        conversionAdapter.notifyDataSetChanged();
 
                         //Setting up spinner according to category.
                         volumeAdapter.setDropDownViewResource(R.layout.item_dd_y);
@@ -139,6 +158,9 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.setDropDownViewResource(R.layout.cat_dd_g);
                         categoryAdapter.notifyDataSetChanged();
 
+                        allWeightConversions();
+                        conversionAdapter.notifyDataSetChanged();
+
                         //Setting up spinner according to category.
                         weightAdapter.setDropDownViewResource(R.layout.item_dd_g);
                         fromSpinner.setAdapter(weightAdapter);
@@ -162,6 +184,9 @@ public class ConversionsActivity extends AppCompatActivity {
                     case 4:
                         categoryAdapter.setDropDownViewResource(R.layout.cat_dd_py);
                         categoryAdapter.notifyDataSetChanged();
+
+                        allTemperatureConditions();
+                        conversionAdapter.notifyDataSetChanged();
 
                         //Setting up spinner according to category.
                         tempAdapter.setDropDownViewResource(R.layout.item_dd_py);
@@ -187,6 +212,9 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.setDropDownViewResource(R.layout.cat_dd_ds);
                         categoryAdapter.notifyDataSetChanged();
 
+                        allStorageConversions();
+                        conversionAdapter.notifyDataSetChanged();
+
                         //Setting up spinner according to category.
                         dataAdapter.setDropDownViewResource(R.layout.item_dd_ds);
                         fromSpinner.setAdapter(dataAdapter);
@@ -211,6 +239,9 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.setDropDownViewResource(R.layout.cat_dd_hs);
                         categoryAdapter.notifyDataSetChanged();
 
+                        allPowerConversions();
+                        conversionAdapter.notifyDataSetChanged();
+
                         //Setting up spinner according to category.
                         powerAdapter.setDropDownViewResource(R.layout.item_dd_hs);
                         fromSpinner.setAdapter(powerAdapter);
@@ -234,6 +265,10 @@ public class ConversionsActivity extends AppCompatActivity {
                     case 7:
                         categoryAdapter.setDropDownViewResource(R.layout.cat_dd_sm);
                         categoryAdapter.notifyDataSetChanged();
+
+                        allEnergyConversions();
+                        listView.setAdapter(conversionAdapter);
+                        conversionAdapter.notifyDataSetChanged();
 
                         //Setting up spinner according to category.
                         energyAdapter.setDropDownViewResource(R.layout.item_dd_sm);
@@ -384,12 +419,49 @@ public class ConversionsActivity extends AppCompatActivity {
                 startActivity(shareIntent);
             }
         });
+
+        seeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!bottomEnabled) {
+                    bottomEnabled = true;
+                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.linear_rotate);
+                    seeAll.startAnimation(animation);
+
+                    ConstraintSet set = new ConstraintSet();
+                    set.clone(constraintLayout);
+                    set.connect(upperParent.getId(), ConstraintSet.BOTTOM, seeAllParent.getId(), ConstraintSet.TOP, 0);
+                    set.applyTo(constraintLayout);
+
+                    lowerParent.setVisibility(View.GONE);
+                    swapButton.setVisibility(View.GONE);
+                    seeAllParent.setVisibility(View.VISIBLE);
+                } else {
+                    bottomEnabled = false;
+                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.linear_rotate);
+                    seeAll.startAnimation(animation);
+
+                    ConstraintSet set = new ConstraintSet();
+                    set.clone(constraintLayout);
+                    set.connect(upperParent.getId(), ConstraintSet.BOTTOM, lowerParent.getId(), ConstraintSet.TOP, 0);
+                    set.applyTo(constraintLayout);
+
+                    lowerParent.setVisibility(View.VISIBLE);
+                    swapButton.setVisibility(View.VISIBLE);
+                    seeAllParent.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
-    private void
+    private void initViews() {
+        listView = findViewById(R.id.list_view_all);
+        conversionList = new ArrayList<>();
+        conversionAdapter = new ConversionAdapter(getApplicationContext(), conversionList);
+        listView.setAdapter(conversionAdapter);
 
-    initViews() {
         solomon = Typeface.createFromAsset(getAssets(), "fonts/Solomon.ttf");
+        constraintLayout = findViewById(R.id.conversion_constraint_parent);
         categorySpinner = findViewById(R.id.category_spinner);
         fromSpinner = findViewById(R.id.from_spinner);
         toSpinner = findViewById(R.id.to_spinner);
@@ -400,7 +472,10 @@ public class ConversionsActivity extends AppCompatActivity {
         share = findViewById(R.id.share_app);
         rate = findViewById(R.id.rate_app);
         swapButton = findViewById(R.id.swap_button);
+        seeAll = findViewById(R.id.see_all_convs);
         upperParent = findViewById(R.id.upper_parent);
+        lowerParent = findViewById(R.id.lower_parent);
+        seeAllParent = findViewById(R.id.see_all_parent);
 
         //Initialising category list.
         categoriesList = new ArrayList<>();
@@ -447,7 +522,7 @@ public class ConversionsActivity extends AppCompatActivity {
         //Initialising the weight list.
         weightList = new ArrayList<>();
         weightList.add("mg");
-        weightList.add("g");
+        weightList.add("gm");
         weightList.add("kg");
         weightList.add("ton");
         weightList.add("carat");
@@ -608,7 +683,7 @@ public class ConversionsActivity extends AppCompatActivity {
                     case 5:
                         removingWatcher();
                         for (int i = 0; i < toSpinner.getChildCount(); i++) {
-                            ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.mauve));
+                            ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.deepspace));
                         }
                         addingWatcher();
                         break;
@@ -621,6 +696,9 @@ public class ConversionsActivity extends AppCompatActivity {
                         break;
                     case 7:
                         removingWatcher();
+                        for (int i = 0; i < toSpinner.getChildCount(); i++) {
+                            ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.sweetmorning));
+                        }
                         addingWatcher();
                         break;
                 }
@@ -640,6 +718,557 @@ public class ConversionsActivity extends AppCompatActivity {
     private void removingWatcher() {
         fromEdit.removeTextChangedListener(textWatcher);
         toEdit.removeTextChangedListener(textWatcher);
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void allLengthConversions() {
+        conversionList.clear();
+        int pos = fromSpinner.getSelectedItemPosition();
+        String value = fromEdit.getText().toString();
+
+        if (!value.isEmpty()) {
+            switch (pos) {
+                case 0:
+                    conversionList.add(new Conversion("mm", String.format("%.4f",mmtomm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cm", String.format("%.4f",mmtocm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("m", String.format("%.4f",mmtom(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("km", String.format("%.4f",mmtokm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("inch", String.format("%.4f",mmtoinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("foot", String.format("%.4f",mmtofoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("yard", String.format("%.4f",mmtoyard(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("mile", String.format("%.4f",mmtomi(Double.parseDouble(value)))));
+                    break;
+                case 1:
+                    conversionList.add(new Conversion("mm", String.format("%.4f",cmtomm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cm", String.format("%.4f",cmtocm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("m", String.format("%.4f",cmtom(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("km", String.format("%.4f",cmtokm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("inch", String.format("%.4f",cmtoinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("foot", String.format("%.4f",cmtofoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("yard", String.format("%.4f",cmtoyard(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("mile", String.format("%.4f",cmtomi(Double.parseDouble(value)))));
+                    break;
+                case 2:
+                    conversionList.add(new Conversion("mm", String.format("%.4f",mtomm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cm", String.format("%.4f",mtocm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("m", String.format("%.4f",mtom(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("km", String.format("%.4f",mtokm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("inch", String.format("%.4f",mtoinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("foot", String.format("%.4f",mtofoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("yard", String.format("%.4f",mtoyard(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("mile", String.format("%.4f",mtomi(Double.parseDouble(value)))));
+                    break;
+                case 3:
+                    conversionList.add(new Conversion("mm", String.format("%.4f",kmtomm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cm", String.format("%.4f",kmtocm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("m", String.format("%.4f",kmtom(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("km", String.format("%.4f",kmtokm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("inch", String.format("%.4f",kmtoinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("foot", String.format("%.4f",kmtofoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("yard", String.format("%.4f",kmtoyard(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("mile", String.format("%.4f",kmtomi(Double.parseDouble(value)))));
+                    break;
+                case 4:
+                    conversionList.add(new Conversion("mm", String.format("%.4f",inchtomm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cm", String.format("%.4f",inchtocm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("m", String.format("%.4f",inchtom(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("km", String.format("%.4f",inchtokm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("inch", String.format("%.4f",inchtoinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("foot", String.format("%.4f",inchtofoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("yard", String.format("%.4f",inchtoyard(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("mile", String.format("%.4f",inchtomi(Double.parseDouble(value)))));
+                    break;
+                case 5:
+                    conversionList.add(new Conversion("mm", String.format("%.4f",foottomm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cm", String.format("%.4f",foottocm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("m", String.format("%.4f",foottom(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("km", String.format("%.4f",foottokm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("inch", String.format("%.4f",foottoinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("foot", String.format("%.4f",foottofoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("yard", String.format("%.4f",foottoyard(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("mile", String.format("%.4f",foottomi(Double.parseDouble(value)))));
+                    break;
+                case 6:
+                    conversionList.add(new Conversion("mm", String.format("%.4f",yardtomm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cm", String.format("%.4f",yardtocm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("m", String.format("%.4f",yardtom(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("km", String.format("%.4f",yardtokm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("inch", String.format("%.4f",yardtoinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("foot", String.format("%.4f",yardtofoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("yard", String.format("%.4f",yardtoyard(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("mile", String.format("%.4f",yardtomi(Double.parseDouble(value)))));
+                    break;
+                case 7:
+                    conversionList.add(new Conversion("mm", String.format("%.4f",mitomm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cm", String.format("%.4f",mitocm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("m", String.format("%.4f",mitom(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("km", String.format("%.4f",mitokm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("inch", String.format("%.4f",mitoinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("foot", String.format("%.4f",mitofoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("yard", String.format("%.4f",mitoyard(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("mile", String.format("%.4f",mitomi(Double.parseDouble(value)))));
+                    break;
+
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void allAreaConditions() {
+        conversionList.clear();
+        int pos = fromSpinner.getSelectedItemPosition();
+        String value = fromEdit.getText().toString();
+
+        if (!value.isEmpty()) {
+            switch (pos) {
+                case 0:
+                    conversionList.add(new Conversion("sq. cm", String.format("%.4f",sqcmTosqcm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. inch", String.format("%.4f",sqcmTosqinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. foot", String.format("%.4f",sqcmTosqfoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. m", String.format("%.4f",sqcmTosqm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. km", String.format("%.4f",sqcmTosqkm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("acre", String.format("%.4f",sqcmToacre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hectare", String.format("%.4f",sqcmTohectare(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. yard", String.format("%.4f",sqcmTosqyard(Double.parseDouble(value)))));
+                    break;
+                case 1:
+                    conversionList.add(new Conversion("sq. cm", String.format("%.4f",sqinchTosqcm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. inch", String.format("%.4f",sqinchTosqinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. foot", String.format("%.4f",sqinchTosqfoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. m", String.format("%.4f",sqinchTosqm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. km", String.format("%.4f",sqinchTosqkm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("acre", String.format("%.4f",sqinchToacre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hectare", String.format("%.4f",sqinchTohectare(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. yard", String.format("%.4f",sqinchTosqyard(Double.parseDouble(value)))));
+                    break;
+                case 2:
+                    conversionList.add(new Conversion("sq. cm", String.format("%.4f",sqfootTosqcm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. inch", String.format("%.4f",sqfootTosqinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. foot", String.format("%.4f",sqfootTosqfoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. m", String.format("%.4f",sqfootTosqm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. km", String.format("%.4f",sqfootTosqkm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("acre", String.format("%.4f",sqfootToacre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hectare", String.format("%.4f",sqfootTohectare(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. yard", String.format("%.4f",sqfootTosqyard(Double.parseDouble(value)))));
+                    break;
+                case 3:
+                    conversionList.add(new Conversion("sq. cm", String.format("%.4f",sqmTosqcm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. inch", String.format("%.4f",sqmTosqinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. foot", String.format("%.4f",sqmTosqfoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. m", String.format("%.4f",sqmTosqm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. km", String.format("%.4f",sqmTosqkm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("acre", String.format("%.4f",sqmToacre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hectare", String.format("%.4f",sqmTohectare(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. yard", String.format("%.4f",sqmTosqyard(Double.parseDouble(value)))));
+                    break;
+                case 4:
+                    conversionList.add(new Conversion("sq. cm", String.format("%.4f","0.0000")));
+                    conversionList.add(new Conversion("sq. inch", String.format("%.4f",sqkmTosqinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. foot", String.format("%.4f",sqkmTosqfoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. m", String.format("%.4f",sqkmTosqm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. km", String.format("%.4f",sqkmTosqkm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("acre", String.format("%.4f",sqkmToacre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hectare", String.format("%.4f",sqkmTohectare(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. yard", String.format("%.4f",sqkmTosqyard(Double.parseDouble(value)))));
+                    break;
+                case 5:
+                    conversionList.add(new Conversion("sq. cm", String.format("%.4f",acreTosqcm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. inch", String.format("%.4f",acreTosqinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. foot", String.format("%.4f",acreTosqfoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. m", String.format("%.4f",acreTosqm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. km", String.format("%.4f",acreTosqkm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("acre", String.format("%.4f",acreToacre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hectare", String.format("%.4f",acreTohectare(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. yard", String.format("%.4f",acreTosqyard(Double.parseDouble(value)))));
+                    break;
+                case 6:
+                    conversionList.add(new Conversion("sq. cm", String.format("%.4f",hectareTosqcm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. inch", String.format("%.4f",hectareTosqinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. foot", String.format("%.4f",hectareTosqfoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. m", String.format("%.4f",hectareTosqm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. km", String.format("%.4f",hectareTosqkm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("acre", String.format("%.4f",hectareToacre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hectare", String.format("%.4f",hectareTohectare(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. yard", String.format("%.4f",hectareTosqyard(Double.parseDouble(value)))));
+                    break;
+                case 7:
+                    conversionList.add(new Conversion("sq. cm", String.format("%.4f",sqyardTosqcm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. inch", String.format("%.4f",sqyardTosqinch(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. foot", String.format("%.4f",sqyardTosqfoot(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. m", String.format("%.4f",sqyardTosqm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. km", String.format("%.4f",sqyardTosqkm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("acre", String.format("%.4f",sqyardToacre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hectare", String.format("%.4f",sqyardTohectare(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("sq. yard", String.format("%.4f",sqyardTosqyard(Double.parseDouble(value)))));
+                    break;
+
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void allVolumeConditions() {
+        conversionList.clear();
+        int pos = fromSpinner.getSelectedItemPosition();
+        String value = fromEdit.getText().toString();
+        if (!value.isEmpty()) {
+            switch (pos) {
+                case 0:
+                    conversionList.add(new Conversion("cu. cm", String.format("%.4f",cucmTocucm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cu. m", String.format("%.4f",cucmTocum(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ml", String.format("%.4f",cucmToml(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("litre", String.format("%.4f",cucmTolitre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("US Pint", String.format("%.4f",cucmTopint(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("US Gallon", String.format("%.4f",cucmTogallon(Double.parseDouble(value)))));
+                    break;
+                case 1:
+                    conversionList.add(new Conversion("cu. cm", String.format("%.4f",cumTocucm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cu. m", String.format("%.4f",cumTocum(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ml", String.format("%.4f",cumToml(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("litre", String.format("%.4f",cumTolitre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("US Pint", String.format("%.4f",cumTopint(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("US Gallon", String.format("%.4f",cumTogallon(Double.parseDouble(value)))));
+                    break;
+                case 2:
+                    conversionList.add(new Conversion("cu. cm", String.format("%.4f",mlTocucm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cu. m", String.format("%.4f",mlTocum(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ml", String.format("%.4f",mlToml(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("litre", String.format("%.4f",mlTolitre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("US Pint", String.format("%.4f",mlTopint(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("US Gallon", String.format("%.4f",mlTogallon(Double.parseDouble(value)))));
+                    break;
+                case 3:
+                    conversionList.add(new Conversion("cu. cm", String.format("%.4f",litreTocucm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cu. m", String.format("%.4f",litreTocum(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ml", String.format("%.4f",litreToml(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("litre", String.format("%.4f",litreTolitre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("US Pint", String.format("%.4f",litreTopint(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("US Gallon", String.format("%.4f",litreTogallon(Double.parseDouble(value)))));
+                    break;
+                case 4:
+                    conversionList.add(new Conversion("cu. cm", String.format("%.4f",pintTocucm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cu. m", String.format("%.4f",pintTocum(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ml", String.format("%.4f",pintToml(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("litre", String.format("%.4f",pintTolitre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("US Pint", String.format("%.4f",pintTopint(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("US Gallon", String.format("%.4f",pintTogallon(Double.parseDouble(value)))));
+                    break;
+                case 5:
+                    conversionList.add(new Conversion("cu. cm", String.format("%.4f",gallonTocucm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("cu. m", String.format("%.4f",gallonTocum(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ml", String.format("%.4f",gallonToml(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("litre", String.format("%.4f",gallonTolitre(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("US Pint", String.format("%.4f",gallonTopint(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("US Gallon", String.format("%.4f",gallonTogallon(Double.parseDouble(value)))));
+                    break;
+
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void allWeightConversions() {
+        conversionList.clear();
+        int pos = fromSpinner.getSelectedItemPosition();
+        String value = fromEdit.getText().toString();
+
+        if (!value.isEmpty()) {
+            switch (pos) {
+                case 0:
+                    conversionList.add(new Conversion("mg", String.format("%.4f", mgTomg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("gm", String.format("%.4f", mgTogm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kg", String.format("%.4f", mgTokg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ton", String.format("%.4f", mgToton(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("carat", String.format("%.4f", mgTocarrat(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ounce", String.format("%.4f", mgToounce(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("pound", String.format("%.4f", mgTopound(Double.parseDouble(value)))));
+                    break;
+                case 1:
+                    conversionList.add(new Conversion("mg", String.format("%.4f", gmTomg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("gm", String.format("%.4f", gmTogm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kg", String.format("%.4f", gmTokg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ton", String.format("%.4f", gmToton(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("carat", String.format("%.4f", gmTocarrat(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ounce", String.format("%.4f", gmToounce(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("pound", String.format("%.4f", gmTopound(Double.parseDouble(value)))));
+                    break;
+                case 2:
+                    conversionList.add(new Conversion("mg", String.format("%.4f", kgTomg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("gm", String.format("%.4f", kgTogm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kg", String.format("%.4f", kgTokg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ton", String.format("%.4f", kgToton(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("carat", String.format("%.4f", kgTocarrat(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ounce", String.format("%.4f", kgToounce(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("pound", String.format("%.4f", kgTopound(Double.parseDouble(value)))));
+                    break;
+                case 3:
+                    conversionList.add(new Conversion("mg", String.format("%.4f", tonTomg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("gm", String.format("%.4f", tonTogm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kg", String.format("%.4f", tonTokg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ton", String.format("%.4f", tonToton(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("carat", String.format("%.4f", tonTocarrat(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ounce", String.format("%.4f", tonToounce(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("pound", String.format("%.4f", tonTopound(Double.parseDouble(value)))));
+                    break;
+                case 4:
+                    conversionList.add(new Conversion("mg", String.format("%.4f", carratTomg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("gm", String.format("%.4f", carratTogm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kg", String.format("%.4f", carratTokg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ton", String.format("%.4f", carratToton(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("carat", String.format("%.4f", carratTocarrat(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ounce", String.format("%.4f", carratToounce(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("pound", String.format("%.4f", carratTopound(Double.parseDouble(value)))));
+                    break;
+                case 5:
+                    conversionList.add(new Conversion("mg", String.format("%.4f", ounceTomg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("gm", String.format("%.4f", ounceTogm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kg", String.format("%.4f", ounceTokg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ton", String.format("%.4f", ounceToton(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("carat", String.format("%.4f", ounceTocarrat(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ounce", String.format("%.4f", ounceToounce(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("pound", String.format("%.4f", ounceTopound(Double.parseDouble(value)))));
+                    break;
+                case 6:
+                    conversionList.add(new Conversion("mg", String.format("%.4f", poundTomg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("gm", String.format("%.4f", poundTogm(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kg", String.format("%.4f", poundTokg(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ton", String.format("%.4f", poundToton(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("carat", String.format("%.4f", poundTocarrat(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("ounce", String.format("%.4f", poundToounce(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("pound", String.format("%.4f", poundTopound(Double.parseDouble(value)))));
+                    break;
+
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void allTemperatureConditions() {
+        conversionList.clear();
+        int pos = fromSpinner.getSelectedItemPosition();
+        String value = fromEdit.getText().toString();
+
+        if (!value.isEmpty()) {
+            switch (pos) {
+                case 0:
+                    conversionList.add(new Conversion("°K", String.format("%.4f", kelvinTokelvin(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°F", String.format("%.4f", kelTofah(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°C", String.format("%.4f", kelTocel(Double.parseDouble(value)))));
+                    break;
+                case 1:
+                    conversionList.add(new Conversion("°K", String.format("%.4f", fahTokel(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°F", String.format("%.4f", fahTofah(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°C", String.format("%.4f", fahTocel(Double.parseDouble(value)))));
+                    break;
+                case 2:
+                    conversionList.add(new Conversion("°K", String.format("%.4f", celTokel(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°F", String.format("%.4f", celTofah(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°C", String.format("%.4f", celTocel(Double.parseDouble(value)))));
+                    break;
+
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void allStorageConversions() {
+        conversionList.clear();
+        int pos = fromSpinner.getSelectedItemPosition();
+        String value = fromEdit.getText().toString();
+
+        if (!value.isEmpty()) {
+            switch (pos) {
+                case 0:
+                    conversionList.add(new Conversion("bytes", String.format("%.4f", byteTobyte(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kb", String.format("%.4f", byteTokb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kB", String.format("%.4f", byteTokB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Mb", String.format("%.4f", byteToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°MB", String.format("%.4f", byteToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Gb", String.format("%.4f", byteToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GB", String.format("%.4f", byteToGB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("TB", String.format("%.4f", byteToTB(Double.parseDouble(value)))));
+                    break;
+                case 1:
+                    conversionList.add(new Conversion("bytes", String.format("%.4f", kbTobyte(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kb", String.format("%.4f", kbTokb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kB", String.format("%.4f", kbTokB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Mb", String.format("%.4f", kbToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°MB", String.format("%.4f", kbToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Gb", String.format("%.4f", kbToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GB", String.format("%.4f", kbToGB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("TB", String.format("%.4f", kbToTB(Double.parseDouble(value)))));
+                    break;
+                case 2:
+                    conversionList.add(new Conversion("bytes", String.format("%.4f", kBtobyte(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kb", String.format("%.4f", kBtokb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kB", String.format("%.4f", kBTokB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Mb", String.format("%.4f", kBToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°MB", String.format("%.4f", kBToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Gb", String.format("%.4f", kBToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GB", String.format("%.4f", kBToGB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("TB", String.format("%.4f", kBToTB(Double.parseDouble(value)))));
+                    break;
+                case 3:
+                    conversionList.add(new Conversion("bytes", String.format("%.4f", Mbtobyte(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kb", String.format("%.4f", MbTokb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kB", String.format("%.4f", MbTokB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Mb", String.format("%.4f", MbToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°MB", String.format("%.4f", MbToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Gb", String.format("%.4f", MbToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GB", String.format("%.4f", MbToGB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("TB", String.format("%.4f", MbToTB(Double.parseDouble(value)))));
+                    break;
+                case 4:
+                    conversionList.add(new Conversion("bytes", String.format("%.4f", MBTobyte(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kb", String.format("%.4f", MBTokb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kB", String.format("%.4f", MBTokB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Mb", String.format("%.4f", MBToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°MB", String.format("%.4f", MBToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Gb", String.format("%.4f", MBToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GB", String.format("%.4f", MBToGB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("TB", String.format("%.4f", MBToTB(Double.parseDouble(value)))));
+                    break;
+                case 5:
+                    conversionList.add(new Conversion("bytes", String.format("%.4f", GbTobyte(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kb", String.format("%.4f", GbTokb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kB", String.format("%.4f", GbTokB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Mb", String.format("%.4f", GbToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°MB", String.format("%.4f", GbToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Gb", String.format("%.4f", GbToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GB", String.format("%.4f", GbToGB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("TB", String.format("%.4f", GbToTB(Double.parseDouble(value)))));
+                    break;
+                case 6:
+                    conversionList.add(new Conversion("bytes", String.format("%.4f", GBTobyte(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kb", String.format("%.4f", GBTokb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kB", String.format("%.4f", GBTokB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Mb", String.format("%.4f", GBToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°MB", String.format("%.4f", GBToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Gb", String.format("%.4f", GBToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GB", String.format("%.4f", GBToGB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("TB", String.format("%.4f", GBToTB(Double.parseDouble(value)))));
+                    break;
+                case 7:
+                    conversionList.add(new Conversion("bytes", String.format("%.4f", TBTobytes(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kb", String.format("%.4f", TBTokb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kB", String.format("%.4f", TBTokB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Mb", String.format("%.4f", TBToMb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°MB", String.format("%.4f", TBToMB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("°Gb", String.format("%.4f", TBToGb(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GB", String.format("%.4f", TBToGB(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("TB", String.format("%.4f", TBToTB(Double.parseDouble(value)))));
+                    break;
+
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void allEnergyConversions() {
+        conversionList.clear();
+        int pos = fromSpinner.getSelectedItemPosition();
+        String value = fromEdit.getText().toString();
+
+        if (!value.isEmpty()) {
+            switch (pos) {
+                case 0:
+                    conversionList.add(new Conversion("mJ", String.format("%.4f", mJTomJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("J", String.format("%.4f", mJToJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kJ", String.format("%.4f", mJTokJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MJ", String.format("%.4f", mJToMJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GJ", String.format("%.4f", mJToGJ(Double.parseDouble(value)))));
+                    break;
+                case 1:
+                    conversionList.add(new Conversion("mJ", String.format("%.4f", JTomJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("J", String.format("%.4f", JToJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kJ", String.format("%.4f", JTokJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MJ", String.format("%.4f", JToMJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GJ", String.format("%.4f", JToGJ(Double.parseDouble(value)))));
+                    break;
+                case 2:
+                    conversionList.add(new Conversion("mJ", String.format("%.4f", kJTomJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("J", String.format("%.4f", kJToJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kJ", String.format("%.4f", kJTokJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MJ", String.format("%.4f", kJToMJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GJ", String.format("%.4f", kJToGJ(Double.parseDouble(value)))));
+                    break;
+                case 3:
+                    conversionList.add(new Conversion("mJ", String.format("%.4f", MJTomJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("J", String.format("%.4f", MJToJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kJ", String.format("%.4f", MJTokJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MJ", String.format("%.4f", MJToMJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GJ", String.format("%.4f", MJToGJ(Double.parseDouble(value)))));
+                    break;
+                case 4:
+                    conversionList.add(new Conversion("mJ", String.format("%.4f", GJTomJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("J", String.format("%.4f", GJToJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kJ", String.format("%.4f", GJTokJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MJ", String.format("%.4f", GJToMJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GJ", String.format("%.4f", GJToGJ(Double.parseDouble(value)))));
+                    break;
+
+            }
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void allPowerConversions() {
+        conversionList.clear();
+        int pos = fromSpinner.getSelectedItemPosition();
+        String value = fromEdit.getText().toString();
+
+        if (!value.isEmpty()) {
+            switch (pos) {
+                case 0:
+                    conversionList.add(new Conversion("watt", String.format("%.4f", wattTowatt(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hW", String.format("%.4f", wattTohW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kW", String.format("%.4f", wattTokW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MW", String.format("%.4f", wattToMW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GW", String.format("%.4f", wattToGW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hp", String.format("%.4f", wattTohp(Double.parseDouble(value)))));
+                    break;
+                case 1:
+                    conversionList.add(new Conversion("watt", String.format("%.4f", hWtowatt(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hW", String.format("%.4f", hWTohW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kW", String.format("%.4f", hWTokW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MW", String.format("%.4f", hWToMW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GW", String.format("%.4f", hWToGW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hp", String.format("%.4f", hWtohp(Double.parseDouble(value)))));
+                    break;
+                case 2:
+                    conversionList.add(new Conversion("watt", String.format("%.4f", kWTowatt(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hW", String.format("%.4f", kWTohW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kW", String.format("%.4f", kWTokW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MW", String.format("%.4f", kWToMW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GW", String.format("%.4f", kWToGW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hp", String.format("%.4f", kWTohp(Double.parseDouble(value)))));
+                    break;
+                case 3:
+                    conversionList.add(new Conversion("watt", String.format("%.4f", MWTowatt(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hW", String.format("%.4f", MWTohW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kW", String.format("%.4f", (MWTokW(Double.parseDouble(value))))));
+                    conversionList.add(new Conversion("MW", String.format("%.4f", MWToMW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GW", String.format("%.4f", MWToGW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hp", String.format("%.4f", MWTohp(Double.parseDouble(value)))));
+                    break;
+                case 4:
+                    conversionList.add(new Conversion("watt", String.format("%.4f", GWTowatt(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hW", String.format("%.4f", GWTohW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kW", String.format("%.4f", GWTokW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MW", String.format("%.4f", GWToMW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GW", String.format("%.4f", GWToGW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hp", String.format("%.4f", GWTohp(Double.parseDouble(value)))));
+                    break;
+                case 5:
+                    conversionList.add(new Conversion("watt", String.format("%.4f", hpTowatt(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hW", String.format("%.4f", hpTohW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kW", String.format("%.4f", hpTokW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MW", String.format("%.4f", hpToMW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GW", String.format("%.4f", hpToGW(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("hp", String.format("%.4f", hpTohp(Double.parseDouble(value)))));
+                    break;
+            }
+        }
     }
 
     @SuppressLint("DefaultLocale")

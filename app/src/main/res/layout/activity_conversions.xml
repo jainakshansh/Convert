@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/conversion_constraint_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ConversionsActivity">
@@ -94,6 +95,32 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/see_all_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/upper_parent"
+        app:layout_constraintVertical_chainStyle="spread">
+
+        <ListView
+            android:divider="@null"
+            android:id="@+id/list_view_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/swap_button"
         android:layout_width="75dp"
@@ -124,5 +151,16 @@
         android:src="@drawable/ic_star_r"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@id/share_app" />
+
+    <ImageView
+        android:id="@+id/see_all_convs"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/arrow_up"
+        android:contentDescription="@string/see_more"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
