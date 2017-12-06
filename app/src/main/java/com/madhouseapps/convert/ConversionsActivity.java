@@ -395,6 +395,16 @@ public class ConversionsActivity extends AppCompatActivity {
                     }
                     fromEdit.addTextChangedListener(textWatcher);
                 }
+                if (fromEdit.getText().length() > 7) {
+                    fromEdit.setTextSize(24f);
+                } else {
+                    fromEdit.setTextSize(35f);
+                }
+                if (toEdit.getText().length() > 7) {
+                    toEdit.setTextSize(24f);
+                } else {
+                    toEdit.setTextSize(35f);
+                }
             }
         };
 
@@ -445,12 +455,11 @@ public class ConversionsActivity extends AppCompatActivity {
                     bottomEnabled = true;
                     Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.linear_rotate);
                     seeAll.startAnimation(animation);
+                    seeAll.setImageResource(R.drawable.ic_arrow_down);
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            seeAll.setImageResource(R.drawable.ic_arrow_down);
-
                             ConstraintSet set = new ConstraintSet();
                             set.clone(constraintLayout);
                             set.connect(upperParent.getId(), ConstraintSet.BOTTOM, seeAllParent.getId(), ConstraintSet.TOP, 0);
@@ -465,12 +474,11 @@ public class ConversionsActivity extends AppCompatActivity {
                     bottomEnabled = false;
                     Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.linear_rotate);
                     seeAll.startAnimation(animation);
+                    seeAll.setImageResource(R.drawable.ic_arrow_up);
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            seeAll.setImageResource(R.drawable.ic_arrow_up);
-
                             ConstraintSet set = new ConstraintSet();
                             set.clone(constraintLayout);
                             set.connect(upperParent.getId(), ConstraintSet.BOTTOM, lowerParent.getId(), ConstraintSet.TOP, 0);
@@ -4742,11 +4750,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double mmtofoot(double num) {
-        return num * 0.00328;
+        return num * 0.0032808399d;
     }
 
     private double mmtoyard(double num) {
-        return num * 0.00109;
+        return num * 0.0010936133d;
     }
 
     private double mmtom(double num) {
@@ -4758,7 +4766,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double mmtomi(double num) {
-        return num * 0.000000621;
+        return num * 6.213688756E-7d;
     }
 
     private double cmtomm(double num) {
@@ -4770,15 +4778,15 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double cmtoinch(double num) {
-        return num * 0.394;
+        return num * 0.3937007874d;
     }
 
     private double cmtofoot(double num) {
-        return num * 0.0328;
+        return num * 0.032808399d;
     }
 
     private double cmtoyard(double num) {
-        return num * 0.0109;
+        return num * 0.010936133d;
     }
 
     private double cmtom(double num) {
@@ -4790,7 +4798,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double cmtomi(double num) {
-        return num * 0.00000621;
+        return num * 0.0000062137d;
     }
 
     private double inchtomm(double num) {
@@ -4806,11 +4814,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double inchtofoot(double num) {
-        return num * 0.0833;
+        return num * 0.0833333333d;
     }
 
     private double inchtoyard(double num) {
-        return num * 0.0278;
+        return num * 0.0277777778d;
     }
 
     private double inchtom(double num) {
@@ -4822,11 +4830,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double inchtomi(double num) {
-        return num * 0.0000158;
+        return num * 0.0000157828d;
     }
 
     private double foottomm(double num) {
-        return num * 304.8;
+        return num * 304.8d;
     }
 
     private double foottocm(double num) {
@@ -4842,7 +4850,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double foottoyard(double num) {
-        return num * 0.333;
+        return num * 0.3333333333d;
     }
 
     private double foottom(double num) {
@@ -4854,7 +4862,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double foottomi(double num) {
-        return num * 0.000189;
+        return num * 0.0001893932d;
     }
 
     private double yardtomm(double num) {
@@ -4882,11 +4890,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double yardtokm(double num) {
-        return num * 0.0009144;
+        return num * 0.0009144d;
     }
 
     private double yardtomi(double num) {
-        return num * 0.000568;
+        return num * 0.0005681797d;
     }
 
     private double mtomm(double num) {
@@ -4898,15 +4906,15 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double mtoinch(double num) {
-        return num * 39.370;
+        return num * 39.37007874d;
     }
 
     private double mtofoot(double num) {
-        return num * 3.281;
+        return num * 3.280839895d;
     }
 
     private double mtoyard(double num) {
-        return num * 1.0936;
+        return num * 1.0936132983d;
     }
 
     private double mtom(double num) {
@@ -4918,7 +4926,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double mtomi(double num) {
-        return num * 0.000621;
+        return num * 0.0006213689d;
     }
 
     private double kmtomm(double num) {
@@ -4930,15 +4938,15 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double kmtoinch(double num) {
-        return num * 39370.0787;
+        return num * 39370.07874d;
     }
 
     private double kmtofoot(double num) {
-        return num * 3280.840;
+        return num * 3280.839895d;
     }
 
     private double kmtoyard(double num) {
-        return num * 1093.613;
+        return num * 1093.6132983d;
     }
 
     private double kmtom(double num) {
@@ -4950,7 +4958,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double kmtomi(double num) {
-        return num * 0.621;
+        return num * 0.6213688756d;
     }
 
     private double mitomm(double num) {
@@ -4962,23 +4970,23 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double mitoinch(double num) {
-        return num * 63360.236;
+        return num * 63360.23622d;
     }
 
     private double mitofoot(double num) {
-        return num * 5280.0197;
+        return num * 5280.019685d;
     }
 
     private double mitoyard(double num) {
-        return num * 1760.00656;
+        return num * 1760.0065617d;
     }
 
     private double mitom(double num) {
-        return num * 1609.35;
+        return num * 1609.35d;
     }
 
     private double mitokm(double num) {
-        return num * 1.60935;
+        return num * 1.60935d;
     }
 
     private double mitomi(double num) {
@@ -4990,11 +4998,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double sqcmTosqinch(double num) {
-        return num * 0.155;
+        return num * 0.15500031d;
     }
 
     private double sqcmTosqfoot(double num) {
-        return num * 0.00108;
+        return num * 0.001076391d;
     }
 
     private double sqcmTosqm(double num) {
@@ -5002,7 +5010,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double sqcmToacre(double num) {
-        return num * 2.47E-8;
+        return num * 2.471053814E-8d;
     }
 
     private double sqcmTohectare(double num) {
@@ -5010,15 +5018,15 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double sqcmTosqkm(double num) {
-        return num * 1.E-10;
+        return num * 1.E-10d;
     }
 
     private double sqcmTosqyard(double num) {
-        return num * 0.000119599;
+        return num * 0.000119599d;
     }
 
     private double sqinchTosqcm(double num) {
-        return num * 6.4516;
+        return num * 6.4516d;
     }
 
     private double sqinchTosqinch(double num) {
@@ -5026,71 +5034,71 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double sqinchTosqfoot(double num) {
-        return num * 0.00694;
+        return num * 0.0069444444d;
     }
 
     private double sqinchTosqm(double num) {
-        return num * 0.00064516;
+        return num * 0.00064516d;
     }
 
     private double sqinchToacre(double num) {
-        return num * 1.594E-7;
+        return num * 1.594E-7d;
     }
 
     private double sqinchTohectare(double num) {
-        return num * 6.4516E-8;
+        return num * 6.4516E-8d;
     }
 
     private double sqinchTosqkm(double num) {
-        return num * 6.4516E-10;
+        return num * 6.4516E-10d;
     }
 
     private double sqinchTosqyard(double num) {
-        return num * 0.0007716049;
+        return num * 0.0007716049d;
     }
 
     private double sqfootTosqcm(double num) {
-        return num * 929.0304;
+        return num * 929.0304d;
     }
 
     private double sqfootTosqinch(double num) {
-        return num * 144;
+        return num * 144d;
     }
 
     private double sqfootTosqfoot(double num) {
-        return num * 1;
+        return num * 1d;
     }
 
     private double sqfootTosqm(double num) {
-        return num * 0.0929;
+        return num * 0.09290304d;
     }
 
     private double sqfootToacre(double num) {
-        return num * 0.0000230;
+        return num * 0.0000229568d;
     }
 
     private double sqfootTohectare(double num) {
-        return num * 0.00000929;
+        return num * 0.0000092903d;
     }
 
     private double sqfootTosqkm(double num) {
-        return num * 9.290E-8;
+        return num * 9.290E-8d;
     }
 
     private double sqfootTosqyard(double num) {
-        return num * 0.1111111111;
+        return num * 0.1111111111d;
     }
 
     private double sqmTosqcm(double num) {
-        return num * 10000;
+        return num * 10000d;
     }
 
     private double sqmTosqinch(double num) {
-        return num * 1550.0031;
+        return num * 1550.0031d;
     }
 
     private double sqmTosqfoot(double num) {
-        return num * 10.764;
+        return num * 10.763910417d;
     }
 
     private double sqmTosqm(double num) {
@@ -5098,7 +5106,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double sqmToacre(double num) {
-        return num * 0.000247;
+        return num * 0.0002471054d;
     }
 
     private double sqmTohectare(double num) {
@@ -5110,11 +5118,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double sqmTosqyard(double num) {
-        return num * 1.1959900463;
+        return num * 1.1959900463d;
     }
 
     private double acreTosqcm(double num) {
-        return num * 40468564.224;
+        return num * 40468564.224d;
     }
 
     private double acreTosqinch(double num) {
@@ -5126,7 +5134,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double acreTosqm(double num) {
-        return num * 4046.856;
+        return num * 4046.8564224d;
     }
 
     private double acreToacre(double num) {
@@ -5134,11 +5142,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double acreTohectare(double num) {
-        return num * 0.405;
+        return num * 0.4046856422d;
     }
 
     private double acreTosqkm(double num) {
-        return num * 0.00405;
+        return num * 0.0040468564d;
     }
 
     private double acreTosqyard(double num) {
@@ -5162,7 +5170,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double hectareToacre(double num) {
-        return num * 2.471;
+        return num * 2.4710538147d;
     }
 
     private double hectareTohectare(double num) {
@@ -5190,7 +5198,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double sqkmToacre(double num) {
-        return num * 247.105;
+        return num * 247.10538147d;
     }
 
     private double sqkmTohectare(double num) {
@@ -5206,7 +5214,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double sqyardTosqcm(double num) {
-        return num * 8361.2736;
+        return num * 8361.2736d;
     }
 
     private double sqyardTosqinch(double num) {
@@ -5218,19 +5226,19 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double sqyardTosqm(double num) {
-        return num * 0.83612736;
+        return num * 0.83612736d;
     }
 
     private double sqyardToacre(double num) {
-        return num * 0.0002066116;
+        return num * 0.0002066116d;
     }
 
     private double sqyardTohectare(double num) {
-        return num * 0.0000836127;
+        return num * 0.0000836127d;
     }
 
     private double sqyardTosqkm(double num) {
-        return num * 8.3612736E-7;
+        return num * 8.3612736E-7d;
     }
 
     private double sqyardTosqyard(double num) {
@@ -5250,11 +5258,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double cucmTopint(double num) {
-        return num * 0.00211;
+        return num * 0.0021133774d;
     }
 
     private double cucmTogallon(double num) {
-        return num * 0.000264;
+        return num * 0.0002641722d;
     }
 
     private double cucmTocum(double num) {
@@ -5274,11 +5282,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double mlTopint(double num) {
-        return num * 0.00211;
+        return num * 0.0021133774d;
     }
 
     private double mlTogallon(double num) {
-        return num * 0.000264;
+        return num * 0.0002641722d;
     }
 
     private double mlTocum(double num) {
@@ -5298,11 +5306,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double litreTopint(double num) {
-        return num * 2.113;
+        return num * 2.1133774149d;
     }
 
     private double litreTogallon(double num) {
-        return num * 0.264;
+        return num * 0.2641721769d;
     }
 
     private double litreTocum(double num) {
@@ -5318,7 +5326,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double pintTolitre(double num) {
-        return num * 0.473;
+        return num * 0.47317625d;
     }
 
     private double pintTopint(double num) {
@@ -5326,11 +5334,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double pintTogallon(double num) {
-        return num * 0.125;
+        return num * 0.125d;
     }
 
     private double pintTocum(double num) {
-        return num * 0.000473;
+        return num * 0.0004731763d;
     }
 
     private double gallonTocucm(double num) {
@@ -5354,7 +5362,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double gallonTocum(double num) {
-        return num * 0.00379;
+        return num * 0.00378541d;
     }
 
     private double cumTocucm(double num) {
@@ -5370,11 +5378,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double cumTopint(double num) {
-        return num * 2113.377;
+        return num * 2113.3774149d;
     }
 
     private double cumTogallon(double num) {
-        return num * 264.172;
+        return num * 264.17217686d;
     }
 
     private double cumTocum(double num) {
@@ -5394,11 +5402,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double mgToounce(double num) {
-        return num * 0.0000353;
+        return num * 0.000035274d;
     }
 
     private double mgTopound(double num) {
-        return num * 0.0000022046;
+        return num * 0.0000022046d;
     }
 
     private double mgTokg(double num) {
@@ -5406,7 +5414,7 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double mgToton(double num) {
-        return num * 1E-9;
+        return num * 1E-9d;
     }
 
     private double gmTomg(double num) {
@@ -5422,11 +5430,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double gmToounce(double num) {
-        return num * 0.0353;
+        return num * 0.0352739907d;
     }
 
     private double gmTopound(double num) {
-        return num * 0.00220;
+        return num * 0.0022046244d;
     }
 
     private double gmTokg(double num) {
@@ -5450,11 +5458,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double carratToounce(double num) {
-        return num * 0.00705;
+        return num * 0.0070547981d;
     }
 
     private double carratTopound(double num) {
-        return num * 0.000441;
+        return num * 0.0004409249d;
     }
 
     private double carratTokg(double num) {
@@ -5486,11 +5494,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double ounceTokg(double num) {
-        return num * 0.0283;
+        return num * 0.0283495d;
     }
 
     private double ounceToton(double num) {
-        return num * 0.0000283;
+        return num * 0.0000283495d;
     }
 
     private double poundTomg(double num) {
@@ -5514,11 +5522,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double poundTokg(double num) {
-        return num * 0.453592;
+        return num * 0.453592d;
     }
 
     private double poundToton(double num) {
-        return num * 0.000454;
+        return num * 0.000453592d;
     }
 
     private double kgTomg(double num) {
@@ -5534,11 +5542,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double kgToounce(double num) {
-        return num * 35.274;
+        return num * 35.273990723d;
     }
 
     private double kgTopound(double num) {
-        return num * 2.205d;
+        return num * 2.2046244202d;
     }
 
     private double kgTokg(double num) {
@@ -5562,11 +5570,11 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double tonToounce(double num) {
-        return num * 35273.991d;
+        return num * 35273.990723d;
     }
 
     private double tonTopound(double num) {
-        return num * 2204.624d;
+        return num * 2204.6244202d;
     }
 
     private double tonTokg(double num) {
