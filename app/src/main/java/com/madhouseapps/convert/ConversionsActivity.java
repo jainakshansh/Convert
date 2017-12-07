@@ -593,6 +593,8 @@ public class ConversionsActivity extends AppCompatActivity {
         energyList.add("kJ");
         energyList.add("MJ");
         energyList.add("GJ");
+        energyList.add("watt-hr");
+        energyList.add("BTU");
 
         //Initialising the power list.
         powerList = new ArrayList<>();
@@ -1233,6 +1235,8 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("kJ", String.format("%.4f", mJTokJ(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("MJ", String.format("%.4f", mJToMJ(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GJ", String.format("%.4f", mJToGJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("watt-hr", String.format("%.4f", mJTowatthr(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("BTU", String.format("%.4f", mJToBTU(Double.parseDouble(value)))));
                     break;
                 case 1:
                     conversionList.add(new Conversion("mJ", String.format("%.4f", JTomJ(Double.parseDouble(value)))));
@@ -1240,6 +1244,8 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("kJ", String.format("%.4f", JTokJ(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("MJ", String.format("%.4f", JToMJ(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GJ", String.format("%.4f", JToGJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("watt-hr", String.format("%.4f", JTowatthr(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("BTU", String.format("%.4f", JToBTU(Double.parseDouble(value)))));
                     break;
                 case 2:
                     conversionList.add(new Conversion("mJ", String.format("%.4f", kJTomJ(Double.parseDouble(value)))));
@@ -1247,6 +1253,8 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("kJ", String.format("%.4f", kJTokJ(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("MJ", String.format("%.4f", kJToMJ(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GJ", String.format("%.4f", kJToGJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("watt-hr", String.format("%.4f", kJTowatthr(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("BTU", String.format("%.4f", kJToBTU(Double.parseDouble(value)))));
                     break;
                 case 3:
                     conversionList.add(new Conversion("mJ", String.format("%.4f", MJTomJ(Double.parseDouble(value)))));
@@ -1254,6 +1262,8 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("kJ", String.format("%.4f", MJTokJ(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("MJ", String.format("%.4f", MJToMJ(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GJ", String.format("%.4f", MJToGJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("watt-hr", String.format("%.4f", MJtowatthr(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("BTU", String.format("%.4f", MJToBTU(Double.parseDouble(value)))));
                     break;
                 case 4:
                     conversionList.add(new Conversion("mJ", String.format("%.4f", GJTomJ(Double.parseDouble(value)))));
@@ -1261,8 +1271,27 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("kJ", String.format("%.4f", GJTokJ(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("MJ", String.format("%.4f", GJToMJ(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("GJ", String.format("%.4f", GJToGJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("watt-hr", String.format("%.4f", GJTowatthr(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("BTU", String.format("%.4f", GJToBTU(Double.parseDouble(value)))));
                     break;
-
+                case 5:
+                    conversionList.add(new Conversion("mJ", String.format("%.4f", watthrTowatthr(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("J", String.format("%.4f", watthrToJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kJ", String.format("%.4f", watthrTokJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MJ", String.format("%.4f", watthrToMJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GJ", String.format("%.4f", watthrToGJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("watt-hr", String.format("%.4f", watthrTowatthr(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("BTU", String.format("%.4f", watthrToBTU(Double.parseDouble(value)))));
+                    break;
+                case 6:
+                    conversionList.add(new Conversion("mJ", String.format("%.4f", BTUTomJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("J", String.format("%.4f", BTUToJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("kJ", String.format("%.4f", BTUTokJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("MJ", String.format("%.4f", BTUToMJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("GJ", String.format("%.4f", BTUToGJ(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("watt-hr", String.format("%.4f", BTUTowatthr(Double.parseDouble(value)))));
+                    conversionList.add(new Conversion("BTU", String.format("%.4f", BTUToBTU(Double.parseDouble(value)))));
+                    break;
             }
         }
     }
@@ -4504,6 +4533,14 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = mJToGJ(Double.parseDouble(fromEdit.getText().toString().trim()));
                             toEdit.setText(String.format("%.4f", res));
                             break;
+                        case 5:
+                            res = mJTowatthr(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = mJToBTU(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 1:
@@ -4526,6 +4563,14 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 4:
                             res = JToGJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = JTowatthr(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = JToBTU(Double.parseDouble(fromEdit.getText().toString().trim()));
                             toEdit.setText(String.format("%.4f", res));
                             break;
                     }
@@ -4552,6 +4597,14 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = kJToGJ(Double.parseDouble(fromEdit.getText().toString().trim()));
                             toEdit.setText(String.format("%.4f", res));
                             break;
+                        case 5:
+                            res = kJTowatthr(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = kJToBTU(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 3:
@@ -4576,7 +4629,14 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = MJToGJ(Double.parseDouble(fromEdit.getText().toString().trim()));
                             toEdit.setText(String.format("%.4f", res));
                             break;
-
+                        case 5:
+                            res = MJtowatthr(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = MJToBTU(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 4:
@@ -4601,12 +4661,84 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = GJToGJ(Double.parseDouble(fromEdit.getText().toString().trim()));
                             toEdit.setText(String.format("%.4f", res));
                             break;
+                        case 5:
+                            res = GJTowatthr(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = GJToBTU(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
+                case 5:
+                    switch (to) {
+                        case 0:
+                            res = watthrTomJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = watthrToJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = watthrTokJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = watthrToMJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = watthrToGJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = watthrTowatthr(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = watthrToBTU(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 6:
+                    switch (to) {
+                        case 0:
+                            res = BTUTomJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = BTUToJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = BTUTokJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = BTUToMJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = BTUToGJ(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = BTUTowatthr(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = BTUToBTU(Double.parseDouble(fromEdit.getText().toString().trim()));
+                            toEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
             }
         }
     }
 
+    @SuppressLint("DefaultLocale")
     private void toEnergyConditions() {
         to = fromSpinner.getSelectedItemPosition();
         from = toSpinner.getSelectedItemPosition();
@@ -4634,6 +4766,14 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = mJToGJ(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
+                        case 5:
+                            res = mJTowatthr(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = mJToBTU(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 1:
@@ -4656,6 +4796,14 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 4:
                             res = JToGJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = JTowatthr(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = JToBTU(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
                     }
@@ -4682,6 +4830,14 @@ public class ConversionsActivity extends AppCompatActivity {
                             res = kJToGJ(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
+                        case 5:
+                            res = kJTowatthr(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = JToBTU(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
                     }
                     break;
                 case 3:
@@ -4704,6 +4860,14 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 4:
                             res = MJToGJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = MJtowatthr(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = MJToBTU(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
 
@@ -4729,6 +4893,78 @@ public class ConversionsActivity extends AppCompatActivity {
                             break;
                         case 4:
                             res = GJToGJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = GJTowatthr(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = GJToBTU(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 5:
+                    switch (to) {
+                        case 0:
+                            res = watthrTomJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = watthrToJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = watthrTokJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = watthrToMJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = watthrToGJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = watthrTowatthr(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = watthrToBTU(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                    }
+                    break;
+                case 6:
+                    switch (to) {
+                        case 0:
+                            res = BTUTomJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 1:
+                            res = BTUToJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 2:
+                            res = BTUTokJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 3:
+                            res = BTUToMJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 4:
+                            res = BTUToGJ(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 5:
+                            res = BTUTowatthr(Double.parseDouble(toEdit.getText().toString().trim()));
+                            fromEdit.setText(String.format("%.4f", res));
+                            break;
+                        case 6:
+                            res = BTUToBTU(Double.parseDouble(toEdit.getText().toString().trim()));
                             fromEdit.setText(String.format("%.4f", res));
                             break;
                     }
@@ -5897,6 +6133,14 @@ public class ConversionsActivity extends AppCompatActivity {
         return num * 1.E-12d;
     }
 
+    private double mJTowatthr(double num) {
+        return num * 2.777777777E-7d;
+    }
+
+    private double mJToBTU(double num) {
+        return num * 9.478171203E-7d;
+    }
+
     private double JTomJ(double num) {
         return num * 1000d;
     }
@@ -5915,6 +6159,14 @@ public class ConversionsActivity extends AppCompatActivity {
 
     private double JToGJ(double num) {
         return num * 1.E-10d;
+    }
+
+    private double JTowatthr(double num) {
+        return num * 0.0002777778d;
+    }
+
+    private double JToBTU(double num) {
+        return num * 0.0009478171d;
     }
 
     private double kJTomJ(double num) {
@@ -5937,6 +6189,14 @@ public class ConversionsActivity extends AppCompatActivity {
         return num * 0.000001d;
     }
 
+    private double kJTowatthr(double num) {
+        return num * 0.2777777778d;
+    }
+
+    private double kJToBTU(double num) {
+        return num * 0.9478171203d;
+    }
+
     private double MJTomJ(double num) {
         return num * 1000000000d;
     }
@@ -5957,6 +6217,14 @@ public class ConversionsActivity extends AppCompatActivity {
         return num * 0.001d;
     }
 
+    private double MJtowatthr(double num) {
+        return num * 277.77777778d;
+    }
+
+    private double MJToBTU(double num) {
+        return num * 947.81712031d;
+    }
+
     private double GJTomJ(double num) {
         return num * 1000000000000d;
     }
@@ -5974,6 +6242,70 @@ public class ConversionsActivity extends AppCompatActivity {
     }
 
     private double GJToGJ(double num) {
+        return num;
+    }
+
+    private double GJTowatthr(double num) {
+        return num * 277777.77778d;
+    }
+
+    private double GJToBTU(double num) {
+        return num * 947817.12031d;
+    }
+
+    private double watthrTomJ(double num) {
+        return num * 3600000d;
+    }
+
+    private double watthrToJ(double num) {
+        return num * 3600d;
+    }
+
+    private double watthrTokJ(double num) {
+        return num * 3.6d;
+    }
+
+    private double watthrToMJ(double num) {
+        return num * 0.0036d;
+    }
+
+    private double watthrToGJ(double num) {
+        return num * 0.0000036d;
+    }
+
+    private double watthrTowatthr(double num) {
+        return num;
+    }
+
+    private double watthrToBTU(double num) {
+        return num * 3.4121416331d;
+    }
+
+    private double BTUTomJ(double num) {
+        return num * 1055055.8526d;
+    }
+
+    private double BTUToJ(double num) {
+        return num * 1055.0558526d;
+    }
+
+    private double BTUTokJ(double num) {
+        return num * 1.0550558526d;
+    }
+
+    private double BTUToMJ(double num) {
+        return num * 0.0010550559d;
+    }
+
+    private double BTUToGJ(double num) {
+        return num * 0.0000010551d;
+    }
+
+    private double BTUTowatthr(double num) {
+        return num * 0.2930710702d;
+    }
+
+    private double BTUToBTU(double num) {
         return num;
     }
 
