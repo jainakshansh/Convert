@@ -154,13 +154,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@id/share_app" />
 
-    <ImageView
+    <Button
         android:id="@+id/see_all_convs"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
         android:layout_margin="20dp"
-        android:background="@drawable/ic_arrow_up"
-        android:contentDescription="@string/see_more"
+        android:background="@android:color/transparent"
+        android:text="@string/see_all"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

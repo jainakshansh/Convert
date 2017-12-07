@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
@@ -17,8 +16,6 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -39,8 +36,8 @@ public class ConversionsActivity extends AppCompatActivity {
     private ConstraintLayout constraintLayout;
     private AppCompatSpinner categorySpinner, fromSpinner, toSpinner;
     private AppCompatEditText fromEdit, toEdit;
-    private ImageView share, rate, seeAll;
-    private Button swapButton;
+    private ImageView share, rate;
+    private Button swapButton, seeAll;
     private LinearLayout upperParent, lowerParent, seeAllParent;
     private boolean bottomEnabled = false;
 
@@ -453,47 +450,40 @@ public class ConversionsActivity extends AppCompatActivity {
             }
         });
 
+        seeAll.setTypeface(solomon, Typeface.BOLD);
+        seeAll.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.graylight));
         seeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!bottomEnabled) {
                     bottomEnabled = true;
-                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.linear_rotate);
-                    seeAll.startAnimation(animation);
-                    seeAll.setImageResource(R.drawable.ic_arrow_down);
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ConstraintSet set = new ConstraintSet();
-                            set.clone(constraintLayout);
-                            set.connect(upperParent.getId(), ConstraintSet.BOTTOM, seeAllParent.getId(), ConstraintSet.TOP, 0);
-                            set.applyTo(constraintLayout);
+                    seeAll.setTextSize(18f);
+                    seeAll.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
 
-                            lowerParent.setVisibility(View.GONE);
-                            swapButton.setVisibility(View.GONE);
-                            seeAllParent.setVisibility(View.VISIBLE);
-                        }
-                    }, 600);
+                    ConstraintSet set = new ConstraintSet();
+                    set.clone(constraintLayout);
+                    set.connect(upperParent.getId(), ConstraintSet.BOTTOM, seeAllParent.getId(), ConstraintSet.TOP, 0);
+                    set.applyTo(constraintLayout);
+
+                    lowerParent.setVisibility(View.GONE);
+                    swapButton.setVisibility(View.GONE);
+                    seeAllParent.setVisibility(View.VISIBLE);
                 } else {
                     bottomEnabled = false;
-                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.linear_rotate);
-                    seeAll.startAnimation(animation);
-                    seeAll.setImageResource(R.drawable.ic_arrow_up);
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ConstraintSet set = new ConstraintSet();
-                            set.clone(constraintLayout);
-                            set.connect(upperParent.getId(), ConstraintSet.BOTTOM, lowerParent.getId(), ConstraintSet.TOP, 0);
-                            set.applyTo(constraintLayout);
+                    seeAll.setTextSize(14f);
+                    seeAll.setTypeface(solomon);
+                    seeAll.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.graylight));
 
-                            lowerParent.setVisibility(View.VISIBLE);
-                            swapButton.setVisibility(View.VISIBLE);
-                            seeAllParent.setVisibility(View.GONE);
-                        }
-                    }, 600);
+                    ConstraintSet set = new ConstraintSet();
+                    set.clone(constraintLayout);
+                    set.connect(upperParent.getId(), ConstraintSet.BOTTOM, lowerParent.getId(), ConstraintSet.TOP, 0);
+                    set.applyTo(constraintLayout);
+
+                    lowerParent.setVisibility(View.VISIBLE);
+                    swapButton.setVisibility(View.VISIBLE);
+                    seeAllParent.setVisibility(View.GONE);
                 }
             }
         });
