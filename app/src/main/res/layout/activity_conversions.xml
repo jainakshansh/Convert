@@ -42,6 +42,7 @@
             android:backgroundTint="@android:color/white"
             android:gravity="center"
             android:inputType="numberDecimal"
+            android:maxLength="14"
             android:textColor="@android:color/white"
             android:textSize="35sp" />
 
@@ -80,6 +81,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:inputType="numberDecimal"
+            android:maxLength="14"
             android:textSize="35sp" />
 
         <android.support.v7.widget.AppCompatSpinner

@@ -2,10 +2,12 @@ package com.madhouseapps.convert;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.content.ContextCompat;
@@ -65,10 +67,20 @@ public class ConversionsActivity extends AppCompatActivity {
     private int from, to;
     private double res = 0.0;
 
+    private SharedPreferences sharedPreferences;
+    int appOpened = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversions);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        appOpened = sharedPreferences.getInt("appOpened", 0);
+        appOpened++;
+        editor.putInt("appOpened", appOpened);
+        editor.apply();
 
         initViews();
 
@@ -81,7 +93,6 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allLengthConversions();
-                        conversionAdapter.notifyDataSetChanged();
 
                         //Setting up spinner according to category.
                         lengthAdapter.setDropDownViewResource(R.layout.item_dd_r);
@@ -108,7 +119,6 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allAreaConversions();
-                        conversionAdapter.notifyDataSetChanged();
 
                         //Setting up spinner according to category.
                         areaAdapter.setDropDownViewResource(R.layout.item_dd_b);
@@ -135,7 +145,6 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allVolumeCoversions();
-                        conversionAdapter.notifyDataSetChanged();
 
                         //Setting up spinner according to category.
                         volumeAdapter.setDropDownViewResource(R.layout.item_dd_y);
@@ -162,7 +171,6 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allWeightConversions();
-                        conversionAdapter.notifyDataSetChanged();
 
                         //Setting up spinner according to category.
                         weightAdapter.setDropDownViewResource(R.layout.item_dd_g);
@@ -189,7 +197,6 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allTemperatureConversions();
-                        conversionAdapter.notifyDataSetChanged();
 
                         //Setting up spinner according to category.
                         tempAdapter.setDropDownViewResource(R.layout.item_dd_py);
@@ -243,7 +250,6 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allPowerConversions();
-                        conversionAdapter.notifyDataSetChanged();
 
                         //Setting up spinner according to category.
                         powerAdapter.setDropDownViewResource(R.layout.item_dd_hs);
@@ -270,8 +276,6 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allEnergyConversions();
-                        listView.setAdapter(conversionAdapter);
-                        conversionAdapter.notifyDataSetChanged();
 
                         //Setting up spinner according to category.
                         energyAdapter.setDropDownViewResource(R.layout.item_dd_sm);
@@ -505,8 +509,6 @@ public class ConversionsActivity extends AppCompatActivity {
     private void initViews() {
         listView = findViewById(R.id.list_view_all);
         conversionList = new ArrayList<>();
-        conversionAdapter = new ConversionAdapter(getApplicationContext(), conversionList);
-        listView.setAdapter(conversionAdapter);
 
         solomon = Typeface.createFromAsset(getAssets(), "fonts/Solomon.ttf");
         constraintLayout = findViewById(R.id.conversion_constraint_parent);
@@ -874,9 +876,10 @@ public class ConversionsActivity extends AppCompatActivity {
                     conversionList.add(new Conversion("yard", String.format("%.4f", mitoyard(Double.parseDouble(value)))));
                     conversionList.add(new Conversion("mile", String.format("%.4f", mitomi(Double.parseDouble(value)))));
                     break;
-
             }
         }
+        conversionAdapter = new ConversionAdapter(getApplicationContext(), conversionList, 0);
+        listView.setAdapter(conversionAdapter);
     }
 
     @SuppressLint("DefaultLocale")
@@ -970,6 +973,8 @@ public class ConversionsActivity extends AppCompatActivity {
 
             }
         }
+        conversionAdapter = new ConversionAdapter(getApplicationContext(), conversionList, 1);
+        listView.setAdapter(conversionAdapter);
     }
 
     @SuppressLint("DefaultLocale")
@@ -1030,6 +1035,8 @@ public class ConversionsActivity extends AppCompatActivity {
 
             }
         }
+        conversionAdapter = new ConversionAdapter(getApplicationContext(), conversionList, 2);
+        listView.setAdapter(conversionAdapter);
     }
 
     @SuppressLint("DefaultLocale")
@@ -1106,6 +1113,8 @@ public class ConversionsActivity extends AppCompatActivity {
 
             }
         }
+        conversionAdapter = new ConversionAdapter(getApplicationContext(), conversionList, 3);
+        listView.setAdapter(conversionAdapter);
     }
 
     @SuppressLint("DefaultLocale")
@@ -1134,6 +1143,8 @@ public class ConversionsActivity extends AppCompatActivity {
 
             }
         }
+        conversionAdapter = new ConversionAdapter(getApplicationContext(), conversionList, 4);
+        listView.setAdapter(conversionAdapter);
     }
 
     @SuppressLint("DefaultLocale")
@@ -1227,6 +1238,8 @@ public class ConversionsActivity extends AppCompatActivity {
 
             }
         }
+        conversionAdapter = new ConversionAdapter(getApplicationContext(), conversionList, 5);
+        listView.setAdapter(conversionAdapter);
     }
 
     @SuppressLint("DefaultLocale")
@@ -1302,6 +1315,8 @@ public class ConversionsActivity extends AppCompatActivity {
                     break;
             }
         }
+        conversionAdapter = new ConversionAdapter(getApplicationContext(), conversionList, 6);
+        listView.setAdapter(conversionAdapter);
     }
 
     @SuppressLint("DefaultLocale")
@@ -1362,6 +1377,8 @@ public class ConversionsActivity extends AppCompatActivity {
                     break;
             }
         }
+        conversionAdapter = new ConversionAdapter(getApplicationContext(), conversionList, 7);
+        listView.setAdapter(conversionAdapter);
     }
 
     @SuppressLint("DefaultLocale")
@@ -6459,5 +6476,15 @@ public class ConversionsActivity extends AppCompatActivity {
 
     private double hpTohp(double num) {
         return num;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (appOpened % 7 == 0) {
+            MadHouseDialog dialog = new MadHouseDialog(ConversionsActivity.this);
+            dialog.show();
+        } else {
+            finish();
+        }
     }
 }
