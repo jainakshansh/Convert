@@ -33,6 +33,7 @@ import java.util.List;
 
 public class ConversionsActivity extends AppCompatActivity {
 
+    //View initialisation.
     private ConstraintLayout constraintLayout;
     private AppCompatSpinner categorySpinner, fromSpinner, toSpinner;
     private AppCompatEditText fromEdit, toEdit;
@@ -90,6 +91,11 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allLengthConversions();
+                        if (!bottomEnabled) {
+                            seeAll.setBackgroundResource(R.drawable.ic_list_r);
+                        } else {
+                            seeAll.setBackgroundResource(R.drawable.ic_single_r);
+                        }
 
                         //Setting up spinner according to category.
                         lengthAdapter.setDropDownViewResource(R.layout.item_dd_r);
@@ -116,6 +122,11 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allAreaConversions();
+                        if (!bottomEnabled) {
+                            seeAll.setBackgroundResource(R.drawable.ic_list_b);
+                        } else {
+                            seeAll.setBackgroundResource(R.drawable.ic_single_b);
+                        }
 
                         //Setting up spinner according to category.
                         areaAdapter.setDropDownViewResource(R.layout.item_dd_b);
@@ -142,6 +153,11 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allVolumeCoversions();
+                        if (!bottomEnabled) {
+                            seeAll.setBackgroundResource(R.drawable.ic_list_y);
+                        } else {
+                            seeAll.setBackgroundResource(R.drawable.ic_single_y);
+                        }
 
                         //Setting up spinner according to category.
                         volumeAdapter.setDropDownViewResource(R.layout.item_dd_y);
@@ -168,6 +184,11 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allWeightConversions();
+                        if (!bottomEnabled) {
+                            seeAll.setBackgroundResource(R.drawable.ic_list_g);
+                        } else {
+                            seeAll.setBackgroundResource(R.drawable.ic_single_g);
+                        }
 
                         //Setting up spinner according to category.
                         weightAdapter.setDropDownViewResource(R.layout.item_dd_g);
@@ -194,6 +215,11 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allTemperatureConversions();
+                        if (!bottomEnabled) {
+                            seeAll.setBackgroundResource(R.drawable.ic_list_sub);
+                        } else {
+                            seeAll.setBackgroundResource(R.drawable.ic_single_sub);
+                        }
 
                         //Setting up spinner according to category.
                         tempAdapter.setDropDownViewResource(R.layout.item_dd_py);
@@ -220,7 +246,11 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allStorageConversions();
-                        conversionAdapter.notifyDataSetChanged();
+                        if (!bottomEnabled) {
+                            seeAll.setBackgroundResource(R.drawable.ic_list_ds);
+                        } else {
+                            seeAll.setBackgroundResource(R.drawable.ic_single_ds);
+                        }
 
                         //Setting up spinner according to category.
                         dataAdapter.setDropDownViewResource(R.layout.item_dd_ds);
@@ -247,6 +277,11 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allPowerConversions();
+                        if (!bottomEnabled) {
+                            seeAll.setBackgroundResource(R.drawable.ic_list_hs);
+                        } else {
+                            seeAll.setBackgroundResource(R.drawable.ic_single_hs);
+                        }
 
                         //Setting up spinner according to category.
                         powerAdapter.setDropDownViewResource(R.layout.item_dd_hs);
@@ -273,6 +308,11 @@ public class ConversionsActivity extends AppCompatActivity {
                         categoryAdapter.notifyDataSetChanged();
 
                         allEnergyConversions();
+                        if (!bottomEnabled) {
+                            seeAll.setBackgroundResource(R.drawable.ic_list_sm);
+                        } else {
+                            seeAll.setBackgroundResource(R.drawable.ic_single_sm);
+                        }
 
                         //Setting up spinner according to category.
                         energyAdapter.setDropDownViewResource(R.layout.item_dd_sm);
@@ -450,16 +490,39 @@ public class ConversionsActivity extends AppCompatActivity {
             }
         });
 
-        seeAll.setTypeface(solomon, Typeface.BOLD);
-        seeAll.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.graylight));
         seeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!bottomEnabled) {
+                    //Multi Mode View.
                     bottomEnabled = true;
 
-                    seeAll.setTextSize(18f);
-                    seeAll.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
+                    switch (categorySpinner.getSelectedItemPosition()) {
+                        case 0:
+                            seeAll.setBackgroundResource(R.drawable.ic_single_r);
+                            break;
+                        case 1:
+                            seeAll.setBackgroundResource(R.drawable.ic_single_b);
+                            break;
+                        case 2:
+                            seeAll.setBackgroundResource(R.drawable.ic_single_y);
+                            break;
+                        case 3:
+                            seeAll.setBackgroundResource(R.drawable.ic_single_g);
+                            break;
+                        case 4:
+                            seeAll.setBackgroundResource(R.drawable.ic_single_sub);
+                            break;
+                        case 5:
+                            seeAll.setBackgroundResource(R.drawable.ic_single_ds);
+                            break;
+                        case 6:
+                            seeAll.setBackgroundResource(R.drawable.ic_single_hs);
+                            break;
+                        case 7:
+                            seeAll.setBackgroundResource(R.drawable.ic_single_sm);
+                            break;
+                    }
 
                     ConstraintSet set = new ConstraintSet();
                     set.clone(constraintLayout);
@@ -470,11 +533,35 @@ public class ConversionsActivity extends AppCompatActivity {
                     swapButton.setVisibility(View.GONE);
                     seeAllParent.setVisibility(View.VISIBLE);
                 } else {
+                    //Single Mode View.
                     bottomEnabled = false;
 
-                    seeAll.setTextSize(14f);
-                    seeAll.setTypeface(solomon);
-                    seeAll.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.graylight));
+                    switch (categorySpinner.getSelectedItemPosition()) {
+                        case 0:
+                            seeAll.setBackgroundResource(R.drawable.ic_list_r);
+                            break;
+                        case 1:
+                            seeAll.setBackgroundResource(R.drawable.ic_list_b);
+                            break;
+                        case 2:
+                            seeAll.setBackgroundResource(R.drawable.ic_list_y);
+                            break;
+                        case 3:
+                            seeAll.setBackgroundResource(R.drawable.ic_list_g);
+                            break;
+                        case 4:
+                            seeAll.setBackgroundResource(R.drawable.ic_list_sub);
+                            break;
+                        case 5:
+                            seeAll.setBackgroundResource(R.drawable.ic_list_ds);
+                            break;
+                        case 6:
+                            seeAll.setBackgroundResource(R.drawable.ic_list_hs);
+                            break;
+                        case 7:
+                            seeAll.setBackgroundResource(R.drawable.ic_list_sm);
+                            break;
+                    }
 
                     ConstraintSet set = new ConstraintSet();
                     set.clone(constraintLayout);

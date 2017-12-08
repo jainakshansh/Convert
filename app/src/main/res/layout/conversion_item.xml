@@ -10,8 +10,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center_vertical|start"
-        android:paddingEnd="0dp"
+        android:gravity="center_vertical|end"
+        android:paddingEnd="8dp"
         android:paddingStart="8dp"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
@@ -20,10 +20,10 @@
         android:id="@+id/conv_value"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:gravity="center_vertical|end"
+        android:layout_weight="3"
+        android:gravity="center_vertical|start"
         android:paddingEnd="8dp"
-        android:paddingStart="0dp"
+        android:paddingStart="16dp"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
