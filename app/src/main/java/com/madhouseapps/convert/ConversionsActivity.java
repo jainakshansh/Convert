@@ -827,6 +827,7 @@ public class ConversionsActivity extends AppCompatActivity {
                         break;
                     case 5:
                         removingWatcher();
+                        fromStorageConditions();
                         for (int i = 0; i < toSpinner.getChildCount(); i++) {
                             ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.deepspace));
                         }
@@ -834,6 +835,7 @@ public class ConversionsActivity extends AppCompatActivity {
                         break;
                     case 6:
                         removingWatcher();
+                        fromPowerConditions();
                         for (int i = 0; i < toSpinner.getChildCount(); i++) {
                             ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.hersheys));
                         }
@@ -841,6 +843,7 @@ public class ConversionsActivity extends AppCompatActivity {
                         break;
                     case 7:
                         removingWatcher();
+                        fromEnergyConditions();
                         for (int i = 0; i < toSpinner.getChildCount(); i++) {
                             ((TextView) parent.getChildAt(i)).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.sweetmorning));
                         }
